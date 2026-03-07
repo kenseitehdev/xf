@@ -715,8 +715,16 @@ xf_Value interp_eval_expr(Interp *it, Expr *e) {
         xf_Value v = xf_val_ok_str(e->as.str.value);
         return v;
     }
-    case EXPR_REGEX:
-        return xf_val_ok_str(e->as.regex.pattern);
+    case EXPR_REGEX: {
+        /* Compile the regex literal into an xf_Regex value */
+        xf_Regex *re = calloc(1, sizeof(xf_Regex));
+        if (!re) return xf_val_nav(XF_TYPE_REGEX);
+        atomic_init(&re->refcount, 1);
+        re->pattern  = xf_str_retain(e->as.regex.pattern);
+        re->flags    = e->as.regex.flags;   /* XF_RE_* flags */
+        re->compiled = NULL;                /* lazy compile on first use */
+        return xf_val_ok_re(re);
+    }
     case EXPR_ARR_LIT: {
         xf_arr_t *a = xf_arr_new();
         for (size_t i = 0; i < e->as.arr_lit.count; i++) {
@@ -945,22 +953,36 @@ case BINOP_PIPE_CMD: {
             case BINOP_GTE:       return make_bool(val_cmp(a,b)>=0);
             case BINOP_SPACESHIP: return xf_val_ok_num((double)val_cmp(a,b));
             case BINOP_CONCAT:    return val_concat(a,b);
-            case BINOP_MATCH: {
-    xf_Value sa = xf_coerce_str(a), sb = xf_coerce_str(b);
-    if (sa.state != XF_STATE_OK || sb.state != XF_STATE_OK)
-        return make_bool(false);
+            case BINOP_MATCH:
+            case BINOP_NMATCH: {
+    /* LHS is always a string. RHS may be a compiled regex value or a str. */
+    xf_Value sa = xf_coerce_str(a);
+    if (sa.state != XF_STATE_OK || !sa.data.str)
+        return make_bool(e->as.binary.op == BINOP_NMATCH);
 
-    return make_bool(strcasestr(sa.data.str->data,
-                                sb.data.str->data) != NULL);
-}
+    const char *subject = sa.data.str->data;
+    const char *pattern = NULL;
+    int cflags = REG_EXTENDED;
 
-case BINOP_NMATCH: {
-    xf_Value sa = xf_coerce_str(a), sb = xf_coerce_str(b);
-    if (sa.state != XF_STATE_OK || sb.state != XF_STATE_OK)
-        return make_bool(true);
+    if (b.state == XF_STATE_OK && b.type == XF_TYPE_REGEX && b.data.re) {
+        /* regex literal value — use compiled pattern + flags */
+        pattern = b.data.re->pattern->data;
+        if (b.data.re->flags & XF_RE_ICASE)     cflags |= REG_ICASE;
+        if (b.data.re->flags & XF_RE_MULTILINE)  cflags |= REG_NEWLINE;
+    } else {
+        xf_Value sb = xf_coerce_str(b);
+        if (sb.state != XF_STATE_OK || !sb.data.str)
+            return make_bool(e->as.binary.op == BINOP_NMATCH);
+        pattern = sb.data.str->data;
+    }
 
-    return make_bool(strcasestr(sa.data.str->data,
-                                sb.data.str->data) == NULL);
+    regex_t re;
+    if (regcomp(&re, pattern, cflags) != 0)
+        return make_bool(e->as.binary.op == BINOP_NMATCH);
+    int rc = regexec(&re, subject, 0, NULL, 0);
+    regfree(&re);
+    bool matched = (rc == 0);
+    return make_bool(e->as.binary.op == BINOP_NMATCH ? !matched : matched);
 }
                       
             default: return xf_val_nav(XF_TYPE_VOID);
