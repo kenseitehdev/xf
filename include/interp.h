@@ -77,6 +77,7 @@ void interp_run_end(Interp *it, Program *prog);
 
 /* feed one input record through all TOP_RULE items.
  * Call this once per input line, between run_program's BEGIN and END phases. */
+void interp_print_record(Interp *it);
 void interp_feed_record(Interp *it, Program *prog,
                         const char *rec, size_t len);
 

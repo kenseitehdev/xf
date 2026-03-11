@@ -442,19 +442,60 @@ void vm_capture_headers(VM *vm) {
     vm->rec.headers_set  = true;
 }
 
+/* ── CSV field splitter (RFC 4180) ───────────────────────────────────
+ * Splits vm->rec.buf in-place into fields, honouring double-quote
+ * quoting:  "" inside a quoted field becomes a literal ".
+ * Returns the number of fields produced.                             */
+static size_t split_csv(VM *vm) {
+    char  *p     = vm->rec.buf;
+    size_t fc    = 0;
+    char   delim = vm->rec.fs[0] ? vm->rec.fs[0] : ',';
+
+    while (fc < FIELD_MAX - 1) {
+        if (*p == '"') {
+            /* quoted field — unescape "" → " in-place */
+            p++;
+            char *start = p, *w = p;
+            while (*p) {
+                if (p[0] == '"' && p[1] == '"') { *w++ = '"'; p += 2; }
+                else if (*p == '"')              { p++; break; }
+                else                             { *w++ = *p++; }
+            }
+            *w = '\0';
+            vm->rec.fields[fc++] = start;
+            if (*p == delim) p++;
+            else             break;
+        } else {
+            /* unquoted field */
+            char *start = p;
+            while (*p && *p != delim) p++;
+            if (*p == delim) { *p++ = '\0'; vm->rec.fields[fc++] = start; }
+            else             { vm->rec.fields[fc++] = start; break; }
+        }
+    }
+    return fc;
+}
+
 static void split_record(VM *vm, const char *rec, size_t len) {
     pthread_mutex_lock(&vm->rec_mu);
-    free(vm->rec.buf);
-    vm->rec.buf     = malloc(len + 1);
+
+    /* Reuse buffer when possible; only reallocate if it grew */
+    if (!vm->rec.buf || vm->rec.buf_len < len) {
+        free(vm->rec.buf);
+        vm->rec.buf = malloc(len + 1);
+    }
     memcpy(vm->rec.buf, rec, len);
     vm->rec.buf[len] = '\0';
     vm->rec.buf_len  = len;
 
-    const char *fs = vm->rec.fs;
-    size_t fs_len  = strlen(fs);
-    size_t fc = 0;
+    const char *fs     = vm->rec.fs;
+    size_t      fs_len = strlen(fs);
+    size_t      fc     = 0;
 
-    if (fs_len == 1 && fs[0] == ' ') {
+    if (vm->rec.in_mode == XF_OUTFMT_CSV && fs_len == 1) {
+        /* RFC 4180 quoted CSV */
+        fc = split_csv(vm);
+    } else if (fs_len == 1 && fs[0] == ' ') {
         /* awk default: split on runs of whitespace */
         char *p = vm->rec.buf;
         while (*p) {
@@ -463,21 +504,29 @@ static void split_record(VM *vm, const char *rec, size_t len) {
             vm->rec.fields[fc++] = p;
             while (*p && *p != ' ' && *p != '\t') p++;
             if (*p) *p++ = '\0';
-            if (fc >= FIELD_MAX-1) break;
+            if (fc >= FIELD_MAX - 1) break;
+        }
+    } else if (fs_len == 1) {
+        /* single-char delimiter — tight inner loop, no strncmp overhead */
+        char  sep = fs[0];
+        char *p   = vm->rec.buf;
+        vm->rec.fields[fc++] = p;
+        while (*p && fc < FIELD_MAX - 1) {
+            if (*p == sep) { *p++ = '\0'; vm->rec.fields[fc++] = p; }
+            else p++;
         }
     } else {
+        /* multi-character delimiter */
         char *p = vm->rec.buf;
         vm->rec.fields[fc++] = p;
-        while (*p && fc < FIELD_MAX-1) {
+        while (*p && fc < FIELD_MAX - 1) {
             if (strncmp(p, fs, fs_len) == 0) {
-                *p = '\0';
-                p += fs_len;
+                *p = '\0'; p += fs_len;
                 vm->rec.fields[fc++] = p;
-            } else {
-                p++;
-            }
+            } else { p++; }
         }
     }
+
     vm->rec.field_count = fc;
     vm->rec.nr++;
     vm->rec.fnr++;
@@ -877,6 +926,7 @@ void vm_rec_snapshot(VM *vm, RecordCtx *snap) {
     snap->nr           = vm->rec.nr;
     snap->fnr          = vm->rec.fnr;
     snap->out_mode     = vm->rec.out_mode;
+    snap->in_mode      = vm->rec.in_mode;
     snap->headers_set  = vm->rec.headers_set;
     memcpy(snap->fs,   vm->rec.fs,   sizeof(snap->fs));
     memcpy(snap->rs,   vm->rec.rs,   sizeof(snap->rs));

@@ -863,32 +863,44 @@ static void print_structured(Interp *it, xf_Value *vals, size_t count,
             break;
     }
 }
+/* ── builtin dispatch table ──────────────────────────────────────────
+ * Maps bare function name → (module, fn_name) for core delegation.
+ * Sorted by name so future binary search is possible; currently hashed
+ * via FNV-1a for O(1) average dispatch without a giant strcmp chain.
+ * ─────────────────────────────────────────────────────────────────── */
+typedef struct { const char *name; const char *mod; const char *fn; } CoreRoute;
+
+static const CoreRoute k_core_routes[] = {
+    /* math */
+    { "abs",   "math", "abs"   }, { "cos",   "math", "cos"   },
+    { "int",   "math", "int"   }, { "rand",  "math", "rand"  },
+    { "sin",   "math", "sin"   }, { "sqrt",  "math", "sqrt"  },
+    { "srand", "math", "srand" },
+    /* string */
+    { "column",  "str", "column"      }, { "gsub",    "str", "replace_all" },
+    { "index",   "str", "index"       }, { "len",     "str", "len"         },
+    { "lower",   "str", "lower"       }, { "sprintf", "str", "sprintf"     },
+    { "sub",     "str", "replace"     }, { "substr",  "str", "substr"      },
+    { "tolower", "str", "lower"       }, { "toupper", "str", "upper"       },
+    { "trim",    "str", "trim"        }, { "upper",   "str", "upper"       },
+};
+#define CORE_ROUTE_COUNT (sizeof(k_core_routes)/sizeof(k_core_routes[0]))
+
+static int core_route_cmp(const void *key, const void *elem) {
+    return strcmp((const char *)key, ((const CoreRoute *)elem)->name);
+}
+
+/* Lookup name in the sorted route table; returns NULL if not found. */
+static const CoreRoute *find_core_route(const char *name) {
+    return (const CoreRoute *)bsearch(name, k_core_routes, CORE_ROUTE_COUNT,
+                                      sizeof(CoreRoute), core_route_cmp);
+}
+
 xf_Value interp_call_builtin(Interp *it, const char *name,
                               xf_Value *args, size_t argc) {
-    /* ── math — delegate to core.math ────────────────────────── */
-    if (strcmp(name,"sin")  ==0) return interp_call_core(it,"math","sin",  args,argc);
-    if (strcmp(name,"cos")  ==0) return interp_call_core(it,"math","cos",  args,argc);
-    if (strcmp(name,"sqrt") ==0) return interp_call_core(it,"math","sqrt", args,argc);
-    if (strcmp(name,"abs")  ==0) return interp_call_core(it,"math","abs",  args,argc);
-    if (strcmp(name,"int")  ==0) return interp_call_core(it,"math","int",  args,argc);
-    if (strcmp(name,"rand") ==0) return interp_call_core(it,"math","rand", args,argc);
-    if (strcmp(name,"srand")==0) return interp_call_core(it,"math","srand",args,argc);
-
-    /* ── string — delegate to core.str ──────────────────────── */
-    if (strcmp(name,"len")     ==0) return interp_call_core(it,"str","len",     args,argc);
-    if (strcmp(name,"toupper") ==0 ||
-        strcmp(name,"upper")   ==0) return interp_call_core(it,"str","upper",   args,argc);
-    if (strcmp(name,"tolower") ==0 ||
-        strcmp(name,"lower")   ==0) return interp_call_core(it,"str","lower",   args,argc);
-    if (strcmp(name,"trim")    ==0) return interp_call_core(it,"str","trim",    args,argc);
-    if (strcmp(name,"substr")  ==0) return interp_call_core(it,"str","substr",  args,argc);
-    if (strcmp(name,"index")   ==0) return interp_call_core(it,"str","index",   args,argc);
-    if (strcmp(name,"sprintf") ==0) return interp_call_core(it,"str","sprintf", args,argc);
-    if (strcmp(name,"column")  ==0) return interp_call_core(it,"str","column",  args,argc);
-    /* sub(str, pat, repl)  → replace first occurrence (plain or regex) */
-    if (strcmp(name,"sub")  ==0) return interp_call_core(it,"str","replace",     args,argc);
-    /* gsub(str, pat, repl) → replace all occurrences (plain or regex) */
-    if (strcmp(name,"gsub") ==0) return interp_call_core(it,"str","replace_all", args,argc);
+    /* ── core module delegation (math + string) ──────────────── */
+    const CoreRoute *rt = find_core_route(name);
+    if (rt) return interp_call_core(it, rt->mod, rt->fn, args, argc);
     if (strcmp(name,"system")==0 && argc==1) {
         xf_Value s = xf_coerce_str(args[0]);
         if (s.state != XF_STATE_OK) return s;
@@ -1821,6 +1833,62 @@ case BINOP_PIPE_CMD: {
         return xf_val_nav(XF_TYPE_VOID);
     }
 }
+/* ── iter_collection ────────────────────────────────────────────────
+ * Shared iteration kernel used by both STMT_FOR and STMT_FOR_SHORT.
+ * Walks arr / tuple / map / set / str collections, binding key+val
+ * loop variables and executing `body` for each element.
+ * ------------------------------------------------------------------ */
+static void iter_collection(Interp *it, xf_Value col,
+                             LoopBind *iter_key, LoopBind *iter_val,
+                             Stmt *body, Loc loc) {
+    if (col.type == XF_TYPE_ARR && col.data.arr) {
+        xf_arr_t *a = col.data.arr;
+        for (size_t i = 0; i < a->len; i++) {
+            sym_push(it->syms, SCOPE_LOOP);
+            xf_Value keyv = xf_val_ok_num((double)i);
+            bind_loop_index_value(it, iter_key, iter_val, keyv, a->items[i], loc);
+            interp_eval_stmt(it, body);
+            scope_free(sym_pop(it->syms));
+            if (it->nexting)  { it->nexting  = false; continue; }
+            if (it->breaking) { it->breaking = false; break; }
+            if (it->returning || it->exiting || it->had_error) break;
+        }
+    } else if (col.type == XF_TYPE_TUPLE && col.data.tuple) {
+        size_t n = xf_tuple_len(col.data.tuple);
+        for (size_t i = 0; i < n; i++) {
+            xf_Value tv = xf_tuple_get(col.data.tuple, i);
+            sym_push(it->syms, SCOPE_LOOP);
+            xf_Value keyv = xf_val_ok_num((double)i);
+            bind_loop_index_value(it, iter_key, iter_val, keyv, tv, loc);
+            interp_eval_stmt(it, body);
+            scope_free(sym_pop(it->syms));
+            if (it->nexting)  { it->nexting  = false; continue; }
+            if (it->breaking) { it->breaking = false; break; }
+            if (it->returning || it->exiting || it->had_error) break;
+        }
+    } else if ((col.type == XF_TYPE_MAP || col.type == XF_TYPE_SET) && col.data.map) {
+        xf_map_t *m   = col.data.map;
+        bool      is_set = (col.type == XF_TYPE_SET);
+        for (size_t i = 0; i < m->order_len; i++) {
+            xf_Str  *key = m->order[i];
+            xf_Value kv  = xf_val_ok_str(key);
+            xf_Value vv  = is_set ? xf_val_ok_str(key) : xf_map_get(m, key);
+            sym_push(it->syms, SCOPE_LOOP);
+            bind_loop_index_value(it, iter_key, iter_val, kv, vv, loc);
+            interp_eval_stmt(it, body);
+            scope_free(sym_pop(it->syms));
+            xf_value_release(kv);
+            if (is_set) xf_value_release(vv);
+            if (it->nexting)  { it->nexting  = false; continue; }
+            if (it->breaking) { it->breaking = false; break; }
+            if (it->returning || it->exiting || it->had_error) break;
+        }
+    } else {
+        interp_error(it, loc, "cannot iterate over type '%s'",
+                     XF_TYPE_NAMES[col.type]);
+    }
+}
+
 xf_Value interp_eval_stmt(Interp *it, Stmt *s) {
     if (!s) return xf_val_null();
     if (it->had_error || it->returning || it->exiting || it->nexting || it->breaking)
@@ -1940,236 +2008,17 @@ xf_Value interp_eval_stmt(Interp *it, Stmt *s) {
     case STMT_FOR: {
         xf_Value col = interp_eval_expr(it, s->as.for_stmt.collection);
         if (col.state != XF_STATE_OK) return col;
-
-        LoopBind *iter_key = s->as.for_stmt.iter_key;
-        LoopBind *iter_val = s->as.for_stmt.iter_val;
-        Stmt     *body     = s->as.for_stmt.body;
-
-        if (col.type == XF_TYPE_ARR && col.data.arr) {
-            xf_arr_t *a = col.data.arr;
-
-            for (size_t i = 0; i < a->len; i++) {
-                sym_push(it->syms, SCOPE_LOOP);
-
-                xf_Value keyv = xf_val_ok_num((double)i);
-                xf_Value valv = a->items[i];
-
-                bool ok = bind_loop_index_value(it, iter_key, iter_val,
-                                                keyv, valv, s->loc);
-
-                if (ok)
-                    interp_eval_stmt(it, body);
-
-                scope_free(sym_pop(it->syms));
-
-                if (it->nexting)  { it->nexting = false; continue; }
-                if (it->breaking) { it->breaking = false; break; }
-                if (it->returning || it->exiting || it->had_error) break;
-            }
-
-        } else if (col.type == XF_TYPE_TUPLE && col.data.tuple) {
-            size_t n = xf_tuple_len(col.data.tuple);
-
-            for (size_t i = 0; i < n; i++) {
-                xf_Value tv = xf_tuple_get(col.data.tuple, i);
-
-                sym_push(it->syms, SCOPE_LOOP);
-
-                xf_Value keyv = xf_val_ok_num((double)i);
-                xf_Value valv = tv;
-
-                bool ok = bind_loop_index_value(it, iter_key, iter_val,
-                                                keyv, valv, s->loc);
-
-                if (ok)
-                    interp_eval_stmt(it, body);
-
-                scope_free(sym_pop(it->syms));
-
-                if (it->nexting)  { it->nexting = false; continue; }
-                if (it->breaking) { it->breaking = false; break; }
-                if (it->returning || it->exiting || it->had_error) break;
-            }
-        } else if (col.type == XF_TYPE_MAP && col.data.map) {
-            xf_map_t *m = col.data.map;
-
-            for (size_t i = 0; i < m->order_len; i++) {
-                xf_Str *key = m->order[i];
-                xf_Value kv = xf_val_ok_str(key);
-                xf_Value vv = xf_map_get(m, key);
-
-                sym_push(it->syms, SCOPE_LOOP);
-
-                bool ok = bind_loop_index_value(it, iter_key, iter_val,
-                                                kv, vv, s->loc);
-
-                if (ok)
-                    interp_eval_stmt(it, body);
-
-                scope_free(sym_pop(it->syms));
-
-                if (it->nexting)  { it->nexting = false; xf_value_release(kv); continue; }
-                if (it->breaking) { it->breaking = false; xf_value_release(kv); break; }
-                if (it->returning || it->exiting || it->had_error) {
-                    xf_value_release(kv);
-                    break;
-                }
-
-                xf_value_release(kv);
-            }
-
-        } else if (col.type == XF_TYPE_SET && col.data.map) {
-            xf_map_t *m = col.data.map;
-
-            for (size_t i = 0; i < m->order_len; i++) {
-                xf_Str *key = m->order[i];
-                xf_Value kv = xf_val_ok_str(key);
-                xf_Value vv = xf_val_ok_str(key);
-
-                sym_push(it->syms, SCOPE_LOOP);
-
-                bool ok = bind_loop_index_value(it, iter_key, iter_val,
-                                                kv, vv, s->loc);
-
-                if (ok)
-                    interp_eval_stmt(it, body);
-
-                scope_free(sym_pop(it->syms));
-
-                if (it->nexting)  { it->nexting = false; xf_value_release(kv); xf_value_release(vv); continue; }
-                if (it->breaking) { it->breaking = false; xf_value_release(kv); xf_value_release(vv); break; }
-                if (it->returning || it->exiting || it->had_error) {
-                    xf_value_release(kv);
-                    xf_value_release(vv);
-                    break;
-                }
-
-                xf_value_release(kv);
-                xf_value_release(vv);
-            }
-        } else {
-            interp_error(it, s->loc, "cannot iterate over type '%s'",
-                         XF_TYPE_NAMES[col.type]);
-        }
-
+        iter_collection(it, col, s->as.for_stmt.iter_key,
+                        s->as.for_stmt.iter_val, s->as.for_stmt.body, s->loc);
+        xf_value_release(col);
         return xf_val_null();
     }
         case STMT_FOR_SHORT: {
         xf_Value col = interp_eval_expr(it, s->as.for_short.collection);
         if (col.state != XF_STATE_OK) return col;
-
-        LoopBind *iter_key = s->as.for_short.iter_key;
-        LoopBind *iter_val = s->as.for_short.iter_val;
-        Stmt     *body     = s->as.for_short.body;
-
-        if (col.type == XF_TYPE_ARR && col.data.arr) {
-            xf_arr_t *a = col.data.arr;
-
-            for (size_t i = 0; i < a->len; i++) {
-                sym_push(it->syms, SCOPE_LOOP);
-
-                xf_Value keyv = xf_val_ok_num((double)i);
-                xf_Value valv = a->items[i];
-
-                bool ok = bind_loop_index_value(it, iter_key, iter_val,
-                                                keyv, valv, s->loc);
-
-                if (ok)
-                    interp_eval_stmt(it, body);
-
-                scope_free(sym_pop(it->syms));
-
-                if (it->nexting)  { it->nexting = false; continue; }
-                if (it->breaking) { it->breaking = false; break; }
-                if (it->returning || it->exiting || it->had_error) break;
-            }
-
-        } else if (col.type == XF_TYPE_TUPLE && col.data.tuple) {
-            size_t n = xf_tuple_len(col.data.tuple);
-
-            for (size_t i = 0; i < n; i++) {
-                xf_Value tv = xf_tuple_get(col.data.tuple, i);
-
-                sym_push(it->syms, SCOPE_LOOP);
-
-                xf_Value keyv = xf_val_ok_num((double)i);
-                xf_Value valv = tv;
-
-                bool ok = bind_loop_index_value(it, iter_key, iter_val,
-                                                keyv, valv, s->loc);
-
-                if (ok)
-                    interp_eval_stmt(it, body);
-
-                scope_free(sym_pop(it->syms));
-
-                if (it->nexting)  { it->nexting = false; continue; }
-                if (it->breaking) { it->breaking = false; break; }
-                if (it->returning || it->exiting || it->had_error) break;
-            }
-        } else if (col.type == XF_TYPE_MAP && col.data.map) {
-            xf_map_t *m = col.data.map;
-
-            for (size_t i = 0; i < m->order_len; i++) {
-                xf_Str *key = m->order[i];
-                xf_Value kv = xf_val_ok_str(key);
-                xf_Value vv = xf_map_get(m, key);
-
-                sym_push(it->syms, SCOPE_LOOP);
-
-                bool ok = bind_loop_index_value(it, iter_key, iter_val,
-                                                kv, vv, s->loc);
-
-                if (ok)
-                    interp_eval_stmt(it, body);
-
-                scope_free(sym_pop(it->syms));
-
-                if (it->nexting)  { it->nexting = false; xf_value_release(kv); continue; }
-                if (it->breaking) { it->breaking = false; xf_value_release(kv); break; }
-                if (it->returning || it->exiting || it->had_error) {
-                    xf_value_release(kv);
-                    break;
-                }
-
-                xf_value_release(kv);
-            }
-
-        } else if (col.type == XF_TYPE_SET && col.data.map) {
-            xf_map_t *m = col.data.map;
-
-            for (size_t i = 0; i < m->order_len; i++) {
-                xf_Str *key = m->order[i];
-                xf_Value kv = xf_val_ok_str(key);
-                xf_Value vv = xf_val_ok_str(key);
-
-                sym_push(it->syms, SCOPE_LOOP);
-
-                bool ok = bind_loop_index_value(it, iter_key, iter_val,
-                                                kv, vv, s->loc);
-
-                if (ok)
-                    interp_eval_stmt(it, body);
-
-                scope_free(sym_pop(it->syms));
-
-                if (it->nexting)  { it->nexting = false; xf_value_release(kv); xf_value_release(vv); continue; }
-                if (it->breaking) { it->breaking = false; xf_value_release(kv); xf_value_release(vv); break; }
-                if (it->returning || it->exiting || it->had_error) {
-                    xf_value_release(kv);
-                    xf_value_release(vv);
-                    break;
-                }
-
-                xf_value_release(kv);
-                xf_value_release(vv);
-            }
-
-   }               else {
-            interp_error(it, s->loc, "cannot iterate over type '%s'",
-                         XF_TYPE_NAMES[col.type]);
-        }
-
+        iter_collection(it, col, s->as.for_short.iter_key,
+                        s->as.for_short.iter_val, s->as.for_short.body, s->loc);
+        xf_value_release(col);
         return xf_val_null();
     }
 
@@ -2499,6 +2348,25 @@ void interp_run_end(Interp *it, Program *prog) {
     /* flush and close all cached redirect handles now that all output is done */
     vm_redir_flush(it->vm);
 }
+/* Print all fields of the current record through the active output format.
+ * Used for format-conversion passthrough (e.g. -f csv:json data.csv). */
+void interp_print_record(Interp *it) {
+    RecordCtx *_rc = IT_REC(it);
+    size_t count = _rc->field_count;
+    if (count == 0) return;
+
+    xf_Value *vals = malloc(sizeof(xf_Value) * count);
+    if (!vals) return;
+    for (size_t i = 0; i < count; i++) {
+        xf_Str *s = xf_str_from_cstr(_rc->fields[i]);
+        vals[i] = xf_val_ok_str(s);
+        xf_str_release(s);
+    }
+    print_structured(it, vals, count, _rc->out_mode);
+    for (size_t i = 0; i < count; i++) xf_value_release(vals[i]);
+    free(vals);
+}
+
 void interp_feed_record(Interp *it, Program *prog,
                         const char *rec, size_t len) {
     vm_split_record(it->vm, rec, len);

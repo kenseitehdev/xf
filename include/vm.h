@@ -187,6 +187,7 @@ typedef struct {
     char      ors[64];       /* ORS — output record separator   */
     char      ofmt[32];      /* OFMT — number format, default "%.6g" */
     uint8_t   out_mode;      /* XF_OUTFMT_* — current output mode   */
+    uint8_t   in_mode;       /* XF_OUTFMT_* — current input mode    */
     char    **headers;       /* field name strings for JSON (owned) */
     size_t    header_count;
     bool      headers_set;   /* true once headers have been populated */

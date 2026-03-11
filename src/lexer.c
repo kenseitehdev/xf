@@ -10,73 +10,92 @@
  * Keyword tables
  * ============================================================ */
 
+/* ============================================================
+ * Keyword tables — kept in strict ASCII-lexicographic order
+ * so that xf_keyword_lookup can use bsearch() for O(log n)
+ * lookup instead of the naive O(n) linear scan.
+ * ============================================================ */
+
 static const Keyword keywords[] = {
-    { "num",           TK_KW_NUM    },
-    { "str",           TK_KW_STR    },
-    { "map",           TK_KW_MAP    },
-    { "set",           TK_KW_SET    },
-    { "arr",           TK_KW_ARR    },
-    { "tuple",         TK_KW_TUPLE  },
-    { "fn",            TK_KW_FN     },
-    { "void",          TK_KW_VOID   },
-    { "OK",            TK_KW_OK     },
-    { "ERR",           TK_KW_ERR    },
-    { "NAV",           TK_KW_NAV    },
-    { "NULL",          TK_KW_NULL   },
-    { "VOID",          TK_KW_VOID_S },
-    { "UNDEF",         TK_KW_UNDEF  },
-    { "BEGIN",         TK_KW_BEGIN  },
-    { "END",           TK_KW_END    },
-    { "if",            TK_KW_IF     },
-    { "else",          TK_KW_ELSE   },
-    { "elif",          TK_KW_ELIF   },
-    { "while",         TK_KW_WHILE  },
-    { "for",           TK_KW_FOR    },
-    { "in",            TK_KW_IN     },
-    { "return",        TK_KW_RETURN },
-    { "print",         TK_KW_PRINT  },
-    { "printf",        TK_KW_PRINTF },
-    { "outfmt",        TK_KW_OUTFMT },
-    { "spawn",         TK_KW_SPAWN  },
-    { "join",          TK_KW_JOIN   },
-    { "next",          TK_KW_NEXT   },
-    { "exit",          TK_KW_EXIT   },
-    { "break",         TK_KW_BREAK  },
-    { "delete",        TK_KW_DELETE },
-    { "import",        TK_KW_IMPORT },
-    { "NR",            TK_VAR_NR    },
-    { "NF",            TK_VAR_NF    },
-    { "FNR",           TK_VAR_FNR   },
-    { "FS",            TK_VAR_FS    },
-    { "RS",            TK_VAR_RS    },
-    { "OFS",           TK_VAR_OFS   },
-    { "ORS",           TK_VAR_ORS   },
-    { "OFMT",          TK_VAR_OFMT  },
+    { "BEGIN",   TK_KW_BEGIN  },
+    { "END",     TK_KW_END    },
+    { "ERR",     TK_KW_ERR    },
+    { "FNR",     TK_VAR_FNR   },
+    { "FS",      TK_VAR_FS    },
+    { "NAV",     TK_KW_NAV    },
+    { "NF",      TK_VAR_NF    },
+    { "NR",      TK_VAR_NR    },
+    { "NULL",    TK_KW_NULL   },
+    { "OFS",     TK_VAR_OFS   },
+    { "OFMT",    TK_VAR_OFMT  },
+    { "OK",      TK_KW_OK     },
+    { "ORS",     TK_VAR_ORS   },
+    { "RS",      TK_VAR_RS    },
+    { "UNDEF",   TK_KW_UNDEF  },
+    { "VOID",    TK_KW_VOID_S },
+    { "arr",     TK_KW_ARR    },
+    { "break",   TK_KW_BREAK  },
+    { "delete",  TK_KW_DELETE },
+    { "elif",    TK_KW_ELIF   },
+    { "else",    TK_KW_ELSE   },
+    { "exit",    TK_KW_EXIT   },
+    { "fn",      TK_KW_FN     },
+    { "for",     TK_KW_FOR    },
+    { "if",      TK_KW_IF     },
+    { "import",  TK_KW_IMPORT },
+    { "in",      TK_KW_IN     },
+    { "join",    TK_KW_JOIN   },
+    { "map",     TK_KW_MAP    },
+    { "next",    TK_KW_NEXT   },
+    { "num",     TK_KW_NUM    },
+    { "outfmt",  TK_KW_OUTFMT },
+    { "print",   TK_KW_PRINT  },
+    { "printf",  TK_KW_PRINTF },
+    { "return",  TK_KW_RETURN },
+    { "set",     TK_KW_SET    },
+    { "spawn",   TK_KW_SPAWN  },
+    { "str",     TK_KW_STR    },
+    { "tuple",   TK_KW_TUPLE  },
+    { "void",    TK_KW_VOID   },
+    { "while",   TK_KW_WHILE  },
 };
 #define KEYWORD_COUNT (sizeof(keywords) / sizeof(keywords[0]))
 
 static const Keyword implicit_vars[] = {
-    { "file",     TK_VAR_FILE  },
-    { "match",    TK_VAR_MATCH },
     { "captures", TK_VAR_CAPS  },
     { "err",      TK_VAR_ERR   },
+    { "file",     TK_VAR_FILE  },
+    { "match",    TK_VAR_MATCH },
 };
 #define IMPLICIT_VAR_COUNT (sizeof(implicit_vars) / sizeof(implicit_vars[0]))
 
+/* bsearch comparator: compares a NUL-terminated needle (key)
+ * against a Keyword entry, lexicographically. */
+static int kw_cmp(const void *key, const void *elem) {
+    return strcmp((const char *)key, ((const Keyword *)elem)->word);
+}
+
+/* O(log n) keyword lookup using the sorted tables above.
+ * We NUL-terminate a local copy of `word` (max 32 chars)
+ * so we can pass a cstr to bsearch without a malloc. */
 TokenKind xf_keyword_lookup(const char *word, size_t len) {
-    for (size_t i = 0; i < KEYWORD_COUNT; i++)
-        if (strlen(keywords[i].word) == len &&
-            memcmp(keywords[i].word, word, len) == 0)
-            return keywords[i].kind;
-    return TK_IDENT;
+    if (len == 0 || len > 31) return TK_IDENT;
+    char buf[32];
+    memcpy(buf, word, len);
+    buf[len] = '\0';
+    const Keyword *kw = bsearch(buf, keywords, KEYWORD_COUNT,
+                                sizeof(Keyword), kw_cmp);
+    return kw ? kw->kind : TK_IDENT;
 }
 
 TokenKind xf_implicit_var_lookup(const char *word, size_t len) {
-    for (size_t i = 0; i < IMPLICIT_VAR_COUNT; i++)
-        if (strlen(implicit_vars[i].word) == len &&
-            memcmp(implicit_vars[i].word, word, len) == 0)
-            return implicit_vars[i].kind;
-    return TK_IDENT;
+    if (len == 0 || len > 31) return TK_IDENT;
+    char buf[32];
+    memcpy(buf, word, len);
+    buf[len] = '\0';
+    const Keyword *kw = bsearch(buf, implicit_vars, IMPLICIT_VAR_COUNT,
+                                sizeof(Keyword), kw_cmp);
+    return kw ? kw->kind : TK_IDENT;
 }
 
 

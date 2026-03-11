@@ -259,39 +259,28 @@ uint8_t sym_fn_return_type(const SymTable *st) {
  * Built-in registration
  * ============================================================ */
 
-void sym_register_builtins(SymTable *st) {
-    /* numeric */
-    sym_define_builtin(st, "sin",   XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "cos",   XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "sqrt",  XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "abs",   XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "int",   XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-
+/* Table of built-in names.  Adding a new built-in only requires one
+ * entry here — no other changes needed.                             */
+static const char *const k_builtins[] = {
+    /* math */
+    "sin", "cos", "sqrt", "abs", "int",
     /* string */
-    sym_define_builtin(st, "len",    XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "split",  XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "sub",    XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "gsub",   XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "match",  XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "substr", XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "index",  XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "toupper",XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "tolower",XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "trim",   XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "sprintf", XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "column",  XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-
+    "len", "split", "sub", "gsub", "match", "substr", "index",
+    "toupper", "tolower", "trim", "sprintf", "column",
     /* I/O */
-    sym_define_builtin(st, "getline",XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "close",  XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "flush",  XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-
+    "getline", "close", "flush",
+    /* collections */
+    "push", "pop", "shift", "unshift", "remove", "has", "keys", "values",
+    "read", "lines", "write", "append",
     /* system */
-    sym_define_builtin(st, "system", XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "time",   XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "rand",   XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "srand",  XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
-    sym_define_builtin(st, "exit",   XF_TYPE_FN, xf_val_undef(XF_TYPE_FN));
+    "system", "time", "rand", "srand", "exit",
+};
+#define BUILTIN_COUNT (sizeof(k_builtins) / sizeof(k_builtins[0]))
+
+void sym_register_builtins(SymTable *st) {
+    xf_Value fn_undef = xf_val_undef(XF_TYPE_FN);
+    for (size_t i = 0; i < BUILTIN_COUNT; i++)
+        sym_define_builtin(st, k_builtins[i], XF_TYPE_FN, fn_undef);
 }
 
 
