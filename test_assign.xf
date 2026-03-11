@@ -1,56 +1,134 @@
 BEGIN {
-    str path = "tests/data_500m.csv"
-    num chunk_size = 10000000
+    str path = "tests/data_1k.csv"
+    arr lines = core.os.lines(path)
+    num total = core.generics.length(lines)
+    print "Lines read : " .. total
+    if (total < 2) { print "ERROR: file too short"; exit(1) }
 
-    num fh = core.os.open(path)
-    if (fh < 0) { print "ERROR: could not open file"; exit(1) }
+    arr headers = core.generics.split(lines[0], ",")
+    num ncols   = core.generics.length(headers)
+    print "Columns    : " .. ncols .. "  →  " .. core.generics.join(headers, ", ")
 
-    # read header line
-    arr header_lines = core.os.chunk(fh, 1)
-    arr headers = core.generics.split(header_lines[0], ",")
-    num ncols = core.generics.length(headers)
-    print "Columns : " .. ncols .. "  →  " .. core.generics.join(headers, ", ")
+    arr dataset = []
+    num i = 1
+    while (i < total) {
+        arr fields = core.generics.split(lines[i], ",")
+        map row    = {}
+        num j = 0
+        while (j < ncols) {
+            row[headers[j]] = fields[j]
+            j = j + 1
+        }
+        push(dataset, row)
+        i = i + 1
+    }
+    num nrows = core.generics.length(dataset)
+    print "Dataset    : " .. nrows .. " rows"
+    print "Row[0] raw : " .. core.format.json(core.ds.row(dataset, 0))
 
     fn mark_row = fn(row) {
-        row["_processed"] = "1"
+        row["_checked"] = "1"
         return row
     }
 
-    arr partial_indexes = []
-    num global_offset = 0
+    map idx = core.process.assign(dataset, mark_row, 0)
 
-    arr raw_lines = core.os.chunk(fh, chunk_size)
-    while (core.generics.length(raw_lines) > 0) {
-        num chunk_len = core.generics.length(raw_lines)
-
-        # parse lines → rows
-        arr chunk_rows = []
-        num li = 0
-        while (li < chunk_len) {
-            arr fields = core.generics.split(raw_lines[li], ",")
-            map row = {}
-            num j = 0
-            while (j < ncols) {
-                row[headers[j]] = fields[j]
-                j = j + 1
-            }
-            push(chunk_rows, row)
-            li = li + 1
-        }
-
-        map chunk_idx = core.process.assign(chunk_rows, mark_row, global_offset)
-        push(partial_indexes, chunk_idx)
-        global_offset = global_offset + chunk_len
-
-        print "Processed : " .. global_offset .. " rows"
-
-        raw_lines = core.os.chunk(fh, chunk_size)
+    num idx_cols = core.generics.length(idx)
+    num expected_cols = ncols + 1
+    print "Index cols : " .. idx_cols
+    if (idx_cols == expected_cols) {
+        print "Shape check : PASS — " .. idx_cols .. " columns indexed"
+    } else {
+        print "Shape check : WARN — expected " .. expected_cols .. " cols, got " .. idx_cols
     }
 
-    core.os.close(fh)
+    map checked_col = idx["_checked"]
+    num checked_vals = core.generics.length(checked_col)
+    print "_checked col distinct values : " .. checked_vals
+    if (checked_vals == 1) {
+        print "_checked shape : PASS"
+    } else {
+        print "_checked shape : FAIL — expected 1, got " .. checked_vals
+        exit(1)
+    }
 
-    print "Merging " .. core.generics.length(partial_indexes) .. " partial indexes..."
-    map full_idx = core.ds.flatten(partial_indexes)
-    print "Done. Columns indexed : " .. core.generics.length(full_idx)
-    print "Sample (name col) : " .. core.str.substr(core.format.json(full_idx["name"]), 0, 200)
+    arr checked_ids = checked_col["1"]
+    num id_count = core.generics.length(checked_ids)
+    print "_checked id count : " .. id_count
+    if (id_count == nrows) {
+        print "ID count : PASS — " .. id_count .. " == " .. nrows
+    } else {
+        print "ID count : FAIL — got " .. id_count .. ", expected " .. nrows
+        exit(1)
+    }
+
+    if (checked_ids[0] == 0) {
+        print "First ID : PASS — 0"
+    } else {
+        print "First ID : FAIL — got " .. checked_ids[0]
+        exit(1)
+    }
+
+    map id_col  = idx["id"]
+    arr row0_ids = id_col["1"]
+    if (core.generics.length(row0_ids) > 0) {
+        print "Lookup id=1 : PASS — global id " .. row0_ids[0]
+    } else {
+        print "Lookup id=1 : FAIL"
+        exit(1)
+    }
+
+    arr chunks  = core.process.split(dataset, 10)
+    num nchunks = core.generics.length(chunks)
+    print "Chunks     : " .. nchunks
+
+    fn mark_parallel = fn(row) {
+        row["_parallel"] = "1"
+        return row
+    }
+
+    arr results = []
+    num ci = 0
+    num per_chunk = 100
+    while (ci < nchunks) {
+        num offset = ci * per_chunk
+        map chunk_idx = core.process.assign(chunks[ci], mark_parallel, offset)
+        push(results, chunk_idx)
+        ci = ci + 1
+    }
+
+    num nresults = core.generics.length(results)
+    print "Results    : " .. nresults .. " index maps"
+
+    map full_idx  = core.ds.flatten(results)
+    num full_cols = core.generics.length(full_idx)
+    print "Merged cols : " .. full_cols
+
+    map par_col   = full_idx["_parallel"]
+    arr par_ids   = par_col["1"]
+    num par_count = core.generics.length(par_ids)
+    print "_parallel id count : " .. par_count
+
+    if (par_count == nrows) {
+        print "Parallel    : PASS — " .. par_count .. " rows across " .. nchunks .. " chunks"
+    } else {
+        print "Parallel    : FAIL — got " .. par_count .. ", expected " .. nrows
+        exit(1)
+    }
+
+    num first_id  = par_ids[0]
+    num last_id   = par_ids[par_count - 1]
+    print "ID range    : " .. first_id .. " .. " .. last_id
+    if (first_id == 0 && last_id == nrows - 1) {
+        print "ID range    : PASS"
+    } else {
+        print "ID range    : WARN — check offsets"
+    }
+
+    map name_col  = full_idx["name"]
+    arr user1_ids = name_col["user1"]
+    print "name=user1  : global ids — " .. core.format.json(user1_ids)
+print full_idx
+    print "──────────────────────────────────"
+    print "All checks passed"
 }

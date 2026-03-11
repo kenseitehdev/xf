@@ -12,6 +12,9 @@
 #include "../include/interp.h"
 #include "../include/repl.h"
 #include "../include/core.h"
+
+
+//TODO flag for format, flag for transform
 /* ============================================================
  * xf — runtime entry point
  *
@@ -20,7 +23,7 @@
  *   xf -e 'expr'              inline execute
  *   xf -f script.xf           file execute
  *   xf -e 'expr' input.txt    inline with file input
- *   xf -f script.xf input.txt file with input
+ *   xf -r script.xf input.txt file with input
  * ============================================================ */
 
 #define XF_VERSION "0.9.10"
@@ -60,13 +63,13 @@ static void usage(FILE *out) {
         "usage:\n"
         "  xf                        start REPL\n"
         "  xf -e 'expr'              execute inline expression\n"
-        "  xf -f script.xf           execute script file\n"
+        "  xf -r script.xf           execute script file\n"
         "  xf -e 'expr' file ...     inline with file input\n"
-        "  xf -f script.xf file ...  script with file input\n"
+        "  xf -r script.xf file ...  script with file input\n"
         "\n"
         "flags:\n"
         "  -e expr   inline expression (may be repeated)\n"
-        "  -f file   script file (.xf)\n"
+        "  -r run   script file (.xf)\n"
         "  -n        suppress implicit print\n"
         "  -p        print every record\n"
         "  -j N      parallel schedulables (default: 1)\n"
@@ -109,8 +112,8 @@ static bool parse_args(int argc, char **argv, Config *c) {
             c->inline_exprs[c->inline_count++] = argv[i];
             continue;
         }
-        if (strcmp(argv[i], "-f") == 0) {
-            if (++i >= argc) { fprintf(stderr, "xf: -f requires an argument\n"); return false; }
+        if (strcmp(argv[i], "-r") == 0) {
+            if (++i >= argc) { fprintf(stderr, "xf: -r requires an argument\n"); return false; }
             c->script_file = argv[i];
             continue;
         }

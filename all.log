@@ -1,0 +1,2374 @@
+ERR ──────────────────────────────────────────────
+  expected expression at tests/test_all.xf:336:12
+──────────────────────────────────────────────
+ERR ──────────────────────────────────────────────
+  expected expression at tests/test_all.xf:356:20
+──────────────────────────────────────────────
+ERR ──────────────────────────────────────────────
+  expected expression at tests/test_all.xf:411:1
+──────────────────────────────────────────────
+---- XF E2E TEST START ----
+ERR ──────────────────────────────────────
+  undefined variable 't'
+  --> tests/test_all.xf:157:13
+   |
+157 |     (k,v) = t
+   |             ^
+──────────────────────────────────────────
+ERR ──────────────────────────────────────
+  invalid assignment target
+  --> tests/test_all.xf:157:5
+   |
+157 |     (k,v) = t
+   |     ^
+──────────────────────────────────────────
+Process:         xf [83265]
+Path:            /Users/USER/Documents/*/xf
+Load Address:    0x10067c000
+Identifier:      xf
+Version:         0
+Code Type:       ARM64
+Platform:        macOS
+Parent Process:  leaks [83264]
+Target Type:     live task
+
+Date/Time:       2026-03-10 19:45:33.605 -0500
+Launch Time:     2026-03-10 19:45:33.525 -0500
+OS Version:      macOS 26.3 (25D125)
+Report Version:  7
+Analysis Tool:   /usr/bin/leaks
+
+Physical footprint:         5280K
+Physical footprint (peak):  5280K
+Idle exit:                  untracked
+----
+
+leaks Report Version: 4.0, multi-line stacks
+Process 83265: 668 nodes malloced for 109 KB
+Process 83265: 479 leaks for 94512 total leaked bytes.
+
+STACK OF 3 INSTANCES OF 'ROOT LEAK: <calloc in sym_push>':
+9   dyld                                  0x181c41d54 start + 7184
+8   xf                                    0x1006a0928 main + 972
+7   xf                                    0x1006a60d8 parse + 184
+6   xf                                    0x1006a5fe4 parse_top + 244
+5   xf                                    0x1006a5b0c parse_fn_decl_top + 468
+4   xf                                    0x1006a21c4 parse_block + 264
+3   xf                                    0x1006a4150 parse_if + 444
+2   xf                                    0x1006a2190 parse_block + 212
+1   xf                                    0x1006a7ba8 sym_push + 64
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    18 (11.8K) << TOTAL >>
+      ----
+      6 (3.94K) ROOT LEAK: <calloc in sym_push 0xac10a4080> [64]
+         4 (2.62K) <calloc in sym_push 0xac10a4040> [64]
+            2 (1.31K) <calloc in sym_push 0xac10a4000> [64]
+               1 (1.25K) <calloc in sym_push 0xac1014000> [1280]
+            1 (1.25K) <calloc in sym_push 0xac1015900> [1280]
+         1 (1.25K) <calloc in sym_push 0xac1015e00> [1280]
+      ----
+      6 (3.94K) ROOT LEAK: <calloc in sym_push 0xac10a4180> [64]
+         4 (2.62K) <calloc in sym_push 0xac10a4140> [64]
+            2 (1.31K) <calloc in sym_push 0xac10a4100> [64]
+               1 (1.25K) <calloc in sym_push 0xac1016800> [1280]
+            1 (1.25K) <calloc in sym_push 0xac1016d00> [1280]
+         1 (1.25K) <calloc in sym_push 0xac1017200> [1280]
+      ----
+      6 (3.94K) ROOT LEAK: <calloc in sym_push 0xac10a4240> [64]
+         4 (2.62K) <calloc in sym_push 0xac10a4200> [64]
+            2 (1.31K) <calloc in sym_push 0xac10a41c0> [64]
+               1 (1.25K) <calloc in sym_push 0xac1017700> [1280]
+            1 (1.25K) <calloc in sym_push 0xac10ac000> [1280]
+         1 (1.25K) <calloc in sym_push 0xac10ac500> [1280]
+
+STACK OF 2 INSTANCES OF 'ROOT LEAK: <calloc in sym_push>':
+9   dyld                                  0x181c41d54 start + 7184
+8   xf                                    0x1006a0928 main + 972
+7   xf                                    0x1006a60d8 parse + 184
+6   xf                                    0x1006a5fe4 parse_top + 244
+5   xf                                    0x1006a5b0c parse_fn_decl_top + 468
+4   xf                                    0x1006a21c4 parse_block + 264
+3   xf                                    0x1006a4538 parse_while + 400
+2   xf                                    0x1006a2190 parse_block + 212
+1   xf                                    0x1006a7ba8 sym_push + 64
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    20 (10.7K) << TOTAL >>
+      ----
+      10 (5.34K) ROOT LEAK: <calloc in sym_push 0xac10a4440> [64]
+         8 (4.03K) <calloc in sym_push 0xac10a4400> [64]
+            6 (2.72K) <calloc in sym_push 0xac10a43c0> [64]
+               3 (1.34K) <calloc in sym_push 0xac10ad900> [1280]
+                  1 (48 bytes) <malloc in xf_str_new 0xac0c249f0> [48]
+                  1 (48 bytes) <malloc in xf_str_new 0xac0c24a20> [48]
+               2 (1.31K) <calloc in sym_push 0xac10a4380> [64]
+                  1 (1.25K) <calloc in sym_push 0xac10ad400> [1280]
+            1 (1.25K) <calloc in sym_push 0xac10ade00> [1280]
+         1 (1.25K) <calloc in sym_push 0xac10ae300> [1280]
+      ----
+      10 (5.34K) ROOT LEAK: <calloc in sym_push 0xac10a46c0> [64]
+         8 (4.03K) <calloc in sym_push 0xac10a4680> [64]
+            6 (2.72K) <calloc in sym_push 0xac10a4640> [64]
+               3 (1.34K) <calloc in sym_push 0xac10b0f00> [1280]
+                  1 (48 bytes) <malloc in xf_str_new 0xac0c24ed0> [48]
+                  1 (48 bytes) <malloc in xf_str_new 0xac0c24f00> [48]
+               2 (1.31K) <calloc in sym_push 0xac10a4600> [64]
+                  1 (1.25K) <calloc in sym_push 0xac10b0a00> [1280]
+            1 (1.25K) <calloc in sym_push 0xac10b1400> [1280]
+         1 (1.25K) <calloc in sym_push 0xac10b1900> [1280]
+
+STACK OF 4 INSTANCES OF 'ROOT LEAK: <calloc in sym_push>':
+7   dyld                                  0x181c41d54 start + 7184
+6   xf                                    0x1006a0928 main + 972
+5   xf                                    0x1006a60d8 parse + 184
+4   xf                                    0x1006a5fe4 parse_top + 244
+3   xf                                    0x1006a5b0c parse_fn_decl_top + 468
+2   xf                                    0x1006a2190 parse_block + 212
+1   xf                                    0x1006a7ba8 sym_push + 64
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    19 (10.6K) << TOTAL >>
+      ----
+      5 (2.67K) ROOT LEAK: <calloc in sym_push 0xac10a42c0> [64]
+         2 (1.31K) <calloc in sym_push 0xac10a4280> [64]
+            1 (1.25K) <calloc in sym_push 0xac10aca00> [1280]
+         2 (1.30K) <calloc in sym_push 0xac10acf00> [1280]
+            1 (48 bytes) <malloc in xf_str_new 0xac0c24840> [48]
+      ----
+      5 (2.67K) ROOT LEAK: <calloc in sym_push 0xac10a44c0> [64]
+         2 (1.31K) <calloc in sym_push 0xac10a4480> [64]
+            1 (1.25K) <calloc in sym_push 0xac10ae800> [1280]
+         2 (1.30K) <calloc in sym_push 0xac10aed00> [1280]
+            1 (48 bytes) <malloc in xf_str_new 0xac0c24bd0> [48]
+      ----
+      5 (2.67K) ROOT LEAK: <calloc in sym_push 0xac10a4540> [64]
+         2 (1.31K) <calloc in sym_push 0xac10a4500> [64]
+            1 (1.25K) <calloc in sym_push 0xac10af200> [1280]
+         2 (1.30K) <calloc in sym_push 0xac10af700> [1280]
+            1 (48 bytes) <malloc in xf_str_new 0xac0c24cf0> [48]
+      ----
+      4 (2.62K) ROOT LEAK: <calloc in sym_push 0xac10a45c0> [64]
+         2 (1.31K) <calloc in sym_push 0xac10a4580> [64]
+            1 (1.25K) <calloc in sym_push 0xac10b0000> [1280]
+         1 (1.25K) <calloc in sym_push 0xac10b0500> [1280]
+
+STACK OF 2 INSTANCES OF 'ROOT LEAK: <calloc in sym_push>':
+8   dyld                                  0x181c41d54 start + 7184
+7   xf                                    0x1006a0928 main + 972
+6   xf                                    0x1006a60d8 parse + 184
+5   xf                                    0x1006a5f70 parse_top + 128
+4   xf                                    0x1006a21c4 parse_block + 264
+3   xf                                    0x1006a4150 parse_if + 444
+2   xf                                    0x1006a2190 parse_block + 212
+1   xf                                    0x1006a7ba8 sym_push + 64
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    41 (9.33K) << TOTAL >>
+      ----
+      39 (8.02K) ROOT LEAK: <calloc in sym_push 0xac10a4880> [64]
+         37 (6.70K) <calloc in sym_push 0xac10a4700> [64]
+            36 (6.64K) <calloc in scope_insert 0xac1019400> [5120]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c25230> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c25290> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c252f0> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c25560> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c25800> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c25ad0> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c25b90> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c25da0> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c25ef0> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c25fb0> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c26010> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c26190> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c26340> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c26370> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c26670> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c26820> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c26880> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c26a00> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c26a60> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c26ac0> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c26b20> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c26e80> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c27150> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c27450> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c27510> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c276f0> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c277b0> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c27990> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c27ae0> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c27ba0> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0c27c60> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0ca04e0> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0ca0630> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0ca0ab0> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0ca0ae0> [48]
+         1 (1.25K) <calloc in sym_push 0xac10b2300> [1280]
+      ----
+      2 (1.31K) ROOT LEAK: <calloc in sym_push 0xac10a4c00> [64]
+         1 (1.25K) <calloc in sym_push 0xac10b3700> [1280]
+
+STACK OF 3 INSTANCES OF 'ROOT LEAK: <calloc in sym_push>':
+9   dyld                                  0x181c41d54 start + 7184
+8   xf                                    0x1006a0928 main + 972
+7   xf                                    0x1006a60d8 parse + 184
+6   xf                                    0x1006a5f70 parse_top + 128
+5   xf                                    0x1006a21c4 parse_block + 264
+4   xf                                    0x1006a21c4 parse_block + 264
+3   xf                                    0x1006a4150 parse_if + 444
+2   xf                                    0x1006a2190 parse_block + 212
+1   xf                                    0x1006a7ba8 sym_push + 64
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    16 (6.84K) << TOTAL >>
+      ----
+      9 (2.86K) ROOT LEAK: <calloc in sym_push 0xac10a5100> [64]
+         7 (1.55K) <calloc in sym_push 0xac10a50c0> [64]
+            6 (1.48K) <calloc in sym_push 0xac10ca300> [1280]
+               1 (48 bytes) <malloc in xf_str_new 0xac0ca1560> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0ca1710> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0ca1740> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0ca18f0> [48]
+               1 (48 bytes) <malloc in xf_str_new 0xac0ca1920> [48]
+         1 (1.25K) <calloc in sym_push 0xac10ca800> [1280]
+      ----
+      5 (2.67K) ROOT LEAK: <calloc in sym_push 0xac10a5000> [64]
+         3 (1.36K) <calloc in sym_push 0xac10a4fc0> [64]
+            2 (1.30K) <calloc in sym_push 0xac10c9900> [1280]
+               1 (48 bytes) <malloc in xf_str_new 0xac0ca0f30> [48]
+         1 (1.25K) <calloc in sym_push 0xac10c9e00> [1280]
+      ----
+      2 (1.31K) ROOT LEAK: <calloc in sym_push 0xac10a5540> [64]
+         1 (1.25K) <calloc in sym_push 0xac10d4f00> [1280]
+
+STACK OF 2 INSTANCES OF 'ROOT LEAK: <calloc in sym_push>':
+9   dyld                                  0x181c41d54 start + 7184
+8   xf                                    0x1006a0928 main + 972
+7   xf                                    0x1006a60d8 parse + 184
+6   xf                                    0x1006a5f70 parse_top + 128
+5   xf                                    0x1006a21c4 parse_block + 264
+4   xf                                    0x1006a21c4 parse_block + 264
+3   xf                                    0x1006a4538 parse_while + 400
+2   xf                                    0x1006a2190 parse_block + 212
+1   xf                                    0x1006a7ba8 sym_push + 64
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    9 (5.30K) << TOTAL >>
+      ----
+      5 (2.67K) ROOT LEAK: <calloc in sym_push 0xac10a5480> [64]
+         2 (1.31K) <calloc in sym_push 0xac10a5440> [64]
+            1 (1.25K) <calloc in sym_push 0xac10d4500> [1280]
+         2 (1.30K) <calloc in sym_push 0xac10d4a00> [1280]
+            1 (48 bytes) <malloc in xf_str_new 0xac0ca1980> [48]
+      ----
+      4 (2.62K) ROOT LEAK: <calloc in sym_push 0xac10a5340> [64]
+         2 (1.31K) <calloc in sym_push 0xac10a5300> [64]
+            1 (1.25K) <calloc in sym_push 0xac10cb700> [1280]
+         1 (1.25K) <calloc in sym_push 0xac10d4000> [1280]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in sym_push>':
+10  dyld                                  0x181c41d54 start + 7184
+9   xf                                    0x1006a0928 main + 972
+8   xf                                    0x1006a60d8 parse + 184
+7   xf                                    0x1006a5f70 parse_top + 128
+6   xf                                    0x1006a21c4 parse_block + 264
+5   xf                                    0x1006a4538 parse_while + 400
+4   xf                                    0x1006a21c4 parse_block + 264
+3   xf                                    0x1006a4538 parse_while + 400
+2   xf                                    0x1006a2190 parse_block + 212
+1   xf                                    0x1006a7ba8 sym_push + 64
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    9 (5.30K) ROOT LEAK: <calloc in sym_push 0xac10a4ec0> [64]
+       7 (3.98K) <calloc in sym_push 0xac10a4e80> [64]
+          5 (2.67K) <calloc in sym_push 0xac10a4e40> [64]
+             2 (1.31K) <calloc in sym_push 0xac10a4e00> [64]
+                1 (1.25K) <calloc in sym_push 0xac10c8500> [1280]
+             2 (1.30K) <calloc in sym_push 0xac10c8a00> [1280]
+                1 (48 bytes) <malloc in xf_str_new 0xac0ca0ba0> [48]
+          1 (1.25K) <calloc in sym_push 0xac10c8f00> [1280]
+       1 (1.25K) <calloc in sym_push 0xac10c9400> [1280]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in sym_push>':
+11  dyld                                  0x181c41d54 start + 7184
+10  xf                                    0x1006a0928 main + 972
+9   xf                                    0x1006a60d8 parse + 184
+8   xf                                    0x1006a5f70 parse_top + 128
+7   xf                                    0x1006a21c4 parse_block + 264
+6   xf                                    0x1006a21c4 parse_block + 264
+5   xf                                    0x1006a3ec8 parse_stmt + 1788
+4   xf                                    0x1006a21c4 parse_block + 264
+3   xf                                    0x1006a4150 parse_if + 444
+2   xf                                    0x1006a2190 parse_block + 212
+1   xf                                    0x1006a7ba8 sym_push + 64
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    4 (2.62K) ROOT LEAK: <calloc in sym_push 0xac10a5200> [64]
+       2 (1.31K) <calloc in sym_push 0xac10a51c0> [64]
+          1 (1.25K) <calloc in sym_push 0xac10cad00> [1280]
+       1 (1.25K) <calloc in sym_push 0xac10cb200> [1280]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in sym_push>':
+8   dyld                                  0x181c41d54 start + 7184
+7   xf                                    0x1006a0928 main + 972
+6   xf                                    0x1006a60d8 parse + 184
+5   xf                                    0x1006a5f70 parse_top + 128
+4   xf                                    0x1006a21c4 parse_block + 264
+3   xf                                    0x1006a4538 parse_while + 400
+2   xf                                    0x1006a2190 parse_block + 212
+1   xf                                    0x1006a7ba8 sym_push + 64
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    4 (2.62K) ROOT LEAK: <calloc in sym_push 0xac10a4900> [64]
+       2 (1.31K) <calloc in sym_push 0xac10a48c0> [64]
+          1 (1.25K) <calloc in sym_push 0xac10b1e00> [1280]
+       1 (1.25K) <calloc in sym_push 0xac10b2800> [1280]
+
+STACK OF 9 INSTANCES OF 'ROOT LEAK: <calloc in interp_eval_top>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0940 main + 996
+2   xf                                    0x10069d344 interp_run_program + 88
+1   xf                                    0x10069ce18 interp_eval_top + 284
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    31 (1.81K) << TOTAL >>
+      ----
+      5 (304 bytes) ROOT LEAK: <calloc in interp_eval_top 0xac0cb0000> [96]
+         3 (160 bytes) <calloc in interp_eval_top 0xac10a5640> [64]
+            1 (48 bytes) <malloc in xf_str_new 0xac0c243f0> [48]
+            1 (48 bytes) <malloc in xf_str_new 0xac0c24420> [48]
+         1 (48 bytes) <malloc in xf_str_new 0xac0c243c0> [48]
+      ----
+      4 (224 bytes) ROOT LEAK: <calloc in interp_eval_top 0xac0cb0060> [96]
+         2 (80 bytes) <calloc in interp_eval_top 0xac0c20020> [32]
+            1 (48 bytes) <malloc in xf_str_new 0xac0c24570> [48]
+         1 (48 bytes) <malloc in xf_str_new 0xac0c24540> [48]
+      ----
+      4 (224 bytes) ROOT LEAK: <calloc in interp_eval_top 0xac0cb00c0> [96]
+         2 (80 bytes) <calloc in interp_eval_top 0xac0c20040> [32]
+            1 (48 bytes) <malloc in xf_str_new 0xac0c246f0> [48]
+         1 (48 bytes) <malloc in xf_str_new 0xac0c246c0> [48]
+      ----
+      4 (224 bytes) ROOT LEAK: <calloc in interp_eval_top 0xac0cb0120> [96]
+         2 (80 bytes) <calloc in interp_eval_top 0xac0c20060> [32]
+            1 (48 bytes) <malloc in xf_str_new 0xac0c24810> [48]
+         1 (48 bytes) <malloc in xf_str_new 0xac0c247e0> [48]
+      ----
+      4 (224 bytes) ROOT LEAK: <calloc in interp_eval_top 0xac0cb0180> [96]
+         2 (80 bytes) <calloc in interp_eval_top 0xac0c20080> [32]
+            1 (48 bytes) <malloc in xf_str_new 0xac0c249c0> [48]
+         1 (48 bytes) <malloc in xf_str_new 0xac0c24990> [48]
+      ----
+      4 (224 bytes) ROOT LEAK: <calloc in interp_eval_top 0xac0cb0300> [96]
+         2 (80 bytes) <calloc in interp_eval_top 0xac0c200a0> [32]
+            1 (48 bytes) <malloc in xf_str_new 0xac0c24ea0> [48]
+         1 (48 bytes) <malloc in xf_str_new 0xac0c24e70> [48]
+      ----
+      2 (144 bytes) ROOT LEAK: <calloc in interp_eval_top 0xac0cb01e0> [96]
+         1 (48 bytes) <malloc in xf_str_new 0xac0c24ba0> [48]
+      ----
+      2 (144 bytes) ROOT LEAK: <calloc in interp_eval_top 0xac0cb0240> [96]
+         1 (48 bytes) <malloc in xf_str_new 0xac0c24cc0> [48]
+      ----
+      2 (144 bytes) ROOT LEAK: <calloc in interp_eval_top 0xac0cb02a0> [96]
+         1 (48 bytes) <malloc in xf_str_new 0xac0c24de0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in sym_push>':
+9   dyld                                  0x181c41d54 start + 7184
+8   xf                                    0x1006a0928 main + 972
+7   xf                                    0x1006a60d8 parse + 184
+6   xf                                    0x1006a5fe4 parse_top + 244
+5   xf                                    0x1006a5b0c parse_fn_decl_top + 468
+4   xf                                    0x1006a21c4 parse_block + 264
+3   xf                                    0x1006a435c parse_if + 968
+2   xf                                    0x1006a2190 parse_block + 212
+1   xf                                    0x1006a7ba8 sym_push + 64
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (1.31K) ROOT LEAK: <calloc in sym_push 0xac10a40c0> [64]
+       1 (1.25K) <calloc in sym_push 0xac1016300> [1280]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in sym_push>':
+8   dyld                                  0x181c41d54 start + 7184
+7   xf                                    0x1006a0928 main + 972
+6   xf                                    0x1006a60d8 parse + 184
+5   xf                                    0x1006a5f70 parse_top + 128
+4   xf                                    0x1006a21c4 parse_block + 264
+3   xf                                    0x1006a47f4 parse_for + 636
+2   xf                                    0x1006a2190 parse_block + 212
+1   xf                                    0x1006a7ba8 sym_push + 64
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (1.31K) ROOT LEAK: <calloc in sym_push 0xac10a4a40> [64]
+       1 (1.25K) <calloc in sym_push 0xac10b2d00> [1280]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in sym_push>':
+8   dyld                                  0x181c41d54 start + 7184
+7   xf                                    0x1006a0928 main + 972
+6   xf                                    0x1006a60d8 parse + 184
+5   xf                                    0x1006a5f70 parse_top + 128
+4   xf                                    0x1006a21c4 parse_block + 264
+3   xf                                    0x1006a435c parse_if + 968
+2   xf                                    0x1006a2190 parse_block + 212
+1   xf                                    0x1006a7ba8 sym_push + 64
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (1.31K) ROOT LEAK: <calloc in sym_push 0xac10a4c80> [64]
+       1 (1.25K) <calloc in sym_push 0xac10c8000> [1280]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_map_new>':
+7   dyld                                  0x181c41d54 start + 7184
+6   xf                                    0x1006a0940 main + 996
+5   xf                                    0x10069d390 interp_run_program + 164
+4   xf                                    0x10069a05c interp_eval_stmt + 288
+3   xf                                    0x10069a2d4 interp_eval_stmt + 920
+2   xf                                    0x100696470 interp_eval_expr + 760
+1   xf                                    0x1006a9f84 xf_map_new + 28
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    5 (880 bytes) ROOT LEAK: <calloc in xf_map_new 0xac1010080> [64]
+       1 (640 bytes) <calloc in xf_map_new 0xac0c28f00> [640]
+       3 (176 bytes) <malloc in xf_map_set 0xac0ca88c0> [80]
+          1 (48 bytes) <malloc in xf_str_new 0xac0c25830> [48]
+          1 (48 bytes) <malloc in xf_str_new 0xac0c25980> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_arr_new>':
+7   dyld                                  0x181c41d54 start + 7184
+6   xf                                    0x1006a0940 main + 996
+5   xf                                    0x10069d390 interp_run_program + 164
+4   xf                                    0x10069a05c interp_eval_stmt + 288
+3   xf                                    0x10069a2d4 interp_eval_stmt + 920
+2   xf                                    0x1006967c4 interp_eval_expr + 1612
+1   xf                                    0x1006a9b74 xf_arr_new + 28
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (272 bytes) ROOT LEAK: <calloc in xf_arr_new 0xac0c318f0> [48]
+       1 (224 bytes) <calloc in xf_arr_new 0xac10dc0e0> [224]
+
+STACK OF 2 INSTANCES OF 'ROOT LEAK: <calloc in ast_ident>':
+20  dyld                                  0x181c41d54 start + 7184
+19  xf                                    0x1006a0928 main + 972
+18  xf                                    0x1006a60d8 parse + 184
+17  xf                                    0x1006a5f70 parse_top + 128
+16  xf                                    0x1006a21c4 parse_block + 264
+15  xf                                    0x1006a21c4 parse_block + 264
+14  xf                                    0x1006a4c14 parse_print + 200
+13  xf                                    0x1006a364c parse_assign + 28
+12  xf                                    0x1006a3518 parse_ternary + 28
+11  xf                                    0x1006a348c parse_coalesce + 24
+10  xf                                    0x1006a3264 parse_or + 28
+9   xf                                    0x1006a30c4 parse_match + 28
+8   xf                                    0x1006a2fec parse_equality + 28
+7   xf                                    0x1006a2bf0 parse_compare + 28
+6   xf                                    0x1006a29d8 parse_add + 28
+5   xf                                    0x1006a2850 parse_mul + 28
+4   xf                                    0x1006a27b8 parse_exp + 24
+3   xf                                    0x1006a2440 parse_postfix + 40
+2   xf                                    0x1006a1840 parse_primary + 644
+1   xf                                    0x10067c914 ast_ident + 36
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    4 (256 bytes) << TOTAL >>
+      ----
+      2 (128 bytes) ROOT LEAK: <calloc in ast_ident 0xac10d0a50> [80]
+         1 (48 bytes) <malloc in xf_str_new 0xac0ca1860> [48]
+      ----
+      2 (128 bytes) ROOT LEAK: <calloc in ast_ident 0xac10d0eb0> [80]
+         1 (48 bytes) <malloc in xf_str_new 0xac0ca1d10> [48]
+
+STACK OF 2 INSTANCES OF 'ROOT LEAK: <calloc in ast_ident>':
+32  dyld                                  0x181c41d54 start + 7184
+31  xf                                    0x1006a0928 main + 972
+30  xf                                    0x1006a60d8 parse + 184
+29  xf                                    0x1006a5f70 parse_top + 128
+28  xf                                    0x1006a21c4 parse_block + 264
+27  xf                                    0x1006a21c4 parse_block + 264
+26  xf                                    0x1006a3cbc parse_stmt + 1264
+25  xf                                    0x1006a364c parse_assign + 28
+24  xf                                    0x1006a3518 parse_ternary + 28
+23  xf                                    0x1006a348c parse_coalesce + 24
+22  xf                                    0x1006a3264 parse_or + 28
+21  xf                                    0x1006a30c4 parse_match + 28
+20  xf                                    0x1006a2fec parse_equality + 28
+19  xf                                    0x1006a2bf0 parse_compare + 28
+18  xf                                    0x1006a29d8 parse_add + 28
+17  xf                                    0x1006a2850 parse_mul + 28
+16  xf                                    0x1006a27b8 parse_exp + 24
+15  xf                                    0x1006a24e4 parse_postfix + 204
+14  xf                                    0x1006a14e4 parse_arglist + 276
+13  xf                                    0x1006a364c parse_assign + 28
+12  xf                                    0x1006a3518 parse_ternary + 28
+11  xf                                    0x1006a348c parse_coalesce + 24
+10  xf                                    0x1006a3264 parse_or + 28
+9   xf                                    0x1006a30c4 parse_match + 28
+8   xf                                    0x1006a2fec parse_equality + 28
+7   xf                                    0x1006a2bf0 parse_compare + 28
+6   xf                                    0x1006a29d8 parse_add + 28
+5   xf                                    0x1006a2850 parse_mul + 28
+4   xf                                    0x1006a27b8 parse_exp + 24
+3   xf                                    0x1006a2440 parse_postfix + 40
+2   xf                                    0x1006a1840 parse_primary + 644
+1   xf                                    0x10067c914 ast_ident + 36
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    4 (256 bytes) << TOTAL >>
+      ----
+      2 (128 bytes) ROOT LEAK: <calloc in ast_ident 0xac10d0af0> [80]
+         1 (48 bytes) <malloc in xf_str_new 0xac0ca18c0> [48]
+      ----
+      2 (128 bytes) ROOT LEAK: <calloc in ast_ident 0xac10d0f50> [80]
+         1 (48 bytes) <malloc in xf_str_new 0xac0ca1d70> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067ff5c core_register + 4864
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (160 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e3a0> [96]
+       1 (64 bytes) <malloc in xf_val_native_fn 0xac1010040> [64]
+
+STACK OF 3 INSTANCES OF 'ROOT LEAK: <malloc in xf_str_new>':
+19  dyld                                  0x181c41d54 start + 7184
+18  xf                                    0x1006a0928 main + 972
+17  xf                                    0x1006a60d8 parse + 184
+16  xf                                    0x1006a6014 parse_top + 292
+15  xf                                    0x1006a5d2c parse_rule + 444
+14  xf                                    0x1006a3794 parse_assign + 356
+13  xf                                    0x1006a364c parse_assign + 28
+12  xf                                    0x1006a3518 parse_ternary + 28
+11  xf                                    0x1006a348c parse_coalesce + 24
+10  xf                                    0x1006a3264 parse_or + 28
+9   xf                                    0x1006a30c4 parse_match + 28
+8   xf                                    0x1006a2fec parse_equality + 28
+7   xf                                    0x1006a2bf0 parse_compare + 28
+6   xf                                    0x1006a29d8 parse_add + 28
+5   xf                                    0x1006a2850 parse_mul + 28
+4   xf                                    0x1006a27b8 parse_exp + 24
+3   xf                                    0x1006a2440 parse_postfix + 40
+2   xf                                    0x1006a1854 parse_primary + 664
+1   xf                                    0x1006a8df8 xf_str_new + 32
+0   libsystem_malloc.dylib                0x181e37f44 _malloc_zone_malloc_instrumented_or_legacy + 152 
+====
+    3 (144 bytes) << TOTAL >>
+      1 (48 bytes) ROOT LEAK: <malloc in xf_str_new 0xac0c241e0> [48]
+      1 (48 bytes) ROOT LEAK: <malloc in xf_str_new 0xac0c24210> [48]
+      1 (48 bytes) ROOT LEAK: <malloc in xf_str_new 0xac0c24240> [48]
+
+STACK OF 3 INSTANCES OF 'ROOT LEAK: <malloc in xf_str_new>':
+19  dyld                                  0x181c41d54 start + 7184
+18  xf                                    0x1006a0928 main + 972
+17  xf                                    0x1006a60d8 parse + 184
+16  xf                                    0x1006a5f70 parse_top + 128
+15  xf                                    0x1006a21c4 parse_block + 264
+14  xf                                    0x1006a56e0 parse_var_decl + 476
+13  xf                                    0x1006a364c parse_assign + 28
+12  xf                                    0x1006a3518 parse_ternary + 28
+11  xf                                    0x1006a348c parse_coalesce + 24
+10  xf                                    0x1006a3264 parse_or + 28
+9   xf                                    0x1006a30c4 parse_match + 28
+8   xf                                    0x1006a2fec parse_equality + 28
+7   xf                                    0x1006a2bf0 parse_compare + 28
+6   xf                                    0x1006a29d8 parse_add + 28
+5   xf                                    0x1006a2850 parse_mul + 28
+4   xf                                    0x1006a27b8 parse_exp + 24
+3   xf                                    0x1006a2440 parse_postfix + 40
+2   xf                                    0x1006a1854 parse_primary + 664
+1   xf                                    0x1006a8df8 xf_str_new + 32
+0   libsystem_malloc.dylib                0x181e37f44 _malloc_zone_malloc_instrumented_or_legacy + 152 
+====
+    3 (144 bytes) << TOTAL >>
+      1 (48 bytes) ROOT LEAK: <malloc in xf_str_new 0xac0c25b00> [48]
+      1 (48 bytes) ROOT LEAK: <malloc in xf_str_new 0xac0c25b30> [48]
+      1 (48 bytes) ROOT LEAK: <malloc in xf_str_new 0xac0c25b60> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x100680588 core_register + 6444
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2efa0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c317a0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fe9c core_register + 4672
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e220> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31110> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10068002c core_register + 5072
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e520> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31260> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f3f8 core_register + 1948
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2cd20> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30690> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f828 core_register + 3020
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d560> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30ab0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x1006800bc core_register + 5216
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e640> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c312f0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fb9c core_register + 3904
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2dc20> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30e10> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x1006803ec core_register + 6032
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2eca0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31620> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f964 core_register + 3336
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d7a0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30bd0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f868 core_register + 3084
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d5c0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30ae0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fa4c core_register + 3568
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d980> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30cc0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f4b8 core_register + 2140
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2cea0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30750> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f588 core_register + 2348
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d020> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30810> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f898 core_register + 3132
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d620> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30b10> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fc5c core_register + 4096
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2dda0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30ed0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x1006805b0 core_register + 6484
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2f000> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c317d0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f2a8 core_register + 1612
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2ca80> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30540> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f368 core_register + 1804
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2cc00> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30600> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067efe0 core_register + 900
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c660> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30330> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fbd4 core_register + 3960
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2dc80> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30e40> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f0a0 core_register + 1092
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c7e0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c303f0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067ece0 core_register + 132
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c060> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30030> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10068005c core_register + 5120
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e580> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31290> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f218 core_register + 1468
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c960> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c304b0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fadc core_register + 3712
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2daa0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30d50> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f8c8 core_register + 3180
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d680> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30b40> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10068014c core_register + 5360
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e760> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31380> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f9f4 core_register + 3480
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d8c0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30c60> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f278 core_register + 1564
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2ca20> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30510> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fdac core_register + 4432
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e040> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31020> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x1006800ec core_register + 5264
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e6a0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31320> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067ed70 core_register + 276
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c180> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c300c0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067ff8c core_register + 4912
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e400> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c311d0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f5b8 core_register + 2396
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d080> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30840> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fbfc core_register + 4000
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2dce0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30e70> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067ee00 core_register + 420
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c2a0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30150> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fb0c core_register + 3760
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2db00> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30d80> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x1006801dc core_register + 5504
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e880> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31410> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f5e8 core_register + 2444
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d0e0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30870> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10068008c core_register + 5168
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e5e0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c312c0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x1006805e0 core_register + 6532
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2f060> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31800> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067eda0 core_register + 324
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c1e0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c300f0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067ef50 core_register + 756
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c540> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c302a0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f738 core_register + 2780
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d380> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c309c0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10068020c core_register + 5552
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e8e0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31440> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067ed40 core_register + 228
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c120> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30090> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10068011c core_register + 5312
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e700> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31350> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f488 core_register + 2092
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2ce40> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30720> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067eef0 core_register + 660
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c480> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30240> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f308 core_register + 1708
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2cb40> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c305a0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fe3c core_register + 4576
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e160> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c310b0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f398 core_register + 1852
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2cc60> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30630> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067ff2c core_register + 4816
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e340> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c311a0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f678 core_register + 2588
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d200> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30900> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10068045c core_register + 6144
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2ed60> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31680> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x100680610 core_register + 6580
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2f0c0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31830> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x1006801ac core_register + 5456
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e820> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c313e0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10068023c core_register + 5600
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e940> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31470> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f708 core_register + 2732
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d320> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30990> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10068048c core_register + 6192
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2edc0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c316b0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f2d8 core_register + 1660
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2cae0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30570> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fddc core_register + 4480
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e0a0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31050> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f924 core_register + 3272
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d740> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30ba0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f768 core_register + 2828
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d3e0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c309f0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x1006802fc core_register + 5792
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2eac0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31530> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f55c core_register + 2304
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2cfc0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c307e0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fa24 core_register + 3528
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d920> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30c90> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f010 core_register + 948
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c6c0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30360> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10068032c core_register + 5840
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2eb20> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31560> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067ee90 core_register + 564
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c3c0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c301e0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067eec0 core_register + 612
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c420> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30210> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x1006804bc core_register + 6240
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2ee20> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c316e0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067ee30 core_register + 468
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c300> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30180> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f648 core_register + 2540
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d1a0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c308d0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067efb0 core_register + 852
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c600> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30300> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fb6c core_register + 3856
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2dbc0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30de0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067ee60 core_register + 516
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c360> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c301b0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f428 core_register + 1996
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2cd80> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c306c0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067ef20 core_register + 708
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c4e0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30270> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10068042c core_register + 6096
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2ed00> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31650> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f1b8 core_register + 1372
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c8a0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30450> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f7f8 core_register + 2972
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d500> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30a80> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f3c8 core_register + 1900
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2ccc0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30660> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f8f0 core_register + 3220
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d6e0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30b70> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fc8c core_register + 4144
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2de00> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30f00> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f618 core_register + 2492
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d140> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c308a0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x100680548 core_register + 6380
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2ef40> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31770> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fb3c core_register + 3808
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2db60> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30db0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f6a8 core_register + 2636
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d260> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30930> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fd7c core_register + 4384
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2dfe0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30ff0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f0d0 core_register + 1140
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c840> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30420> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10068029c core_register + 5696
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2ea00> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c314d0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f994 core_register + 3384
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d800> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30c00> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fa7c core_register + 3616
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d9e0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30cf0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10068017c core_register + 5408
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e7c0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c313b0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067ed10 core_register + 180
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c0c0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30060> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f1e8 core_register + 1420
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c900> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30480> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f6d8 core_register + 2684
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d2c0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30960> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f338 core_register + 1756
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2cba0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c305d0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067ffbc core_register + 4960
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e460> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31200> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10068038c core_register + 5936
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2ebe0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c315c0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067faac core_register + 3664
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2da40> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30d20> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fd1c core_register + 4288
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2df20> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30f90> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x1006804ec core_register + 6288
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2ee80> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31710> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f9c4 core_register + 3432
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d860> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30c30> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f040 core_register + 996
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c720> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30390> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10068026c core_register + 5648
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e9a0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c314a0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067ecb0 core_register + 84
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c000> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30000> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067edd0 core_register + 372
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c240> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30120> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fefc core_register + 4768
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e2e0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31170> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fecc core_register + 4720
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e280> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31140> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f798 core_register + 2876
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d440> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30a20> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067ef80 core_register + 804
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c5a0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c302d0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067ffec core_register + 5008
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e4c0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31230> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fe6c core_register + 4624
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e1c0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c310e0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10068035c core_register + 5888
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2eb80> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31590> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fcbc core_register + 4192
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2de60> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30f30> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x1006803bc core_register + 5984
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2ec40> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c315f0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10068051c core_register + 6336
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2eee0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31740> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f4e8 core_register + 2188
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2cf00> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30780> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f518 core_register + 2236
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2cf60> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c307b0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x1006802cc core_register + 5744
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2ea60> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31500> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f7c8 core_register + 2924
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2d4a0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30a50> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fe0c core_register + 4528
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2e100> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c31080> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fcec core_register + 4240
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2dec0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30f60> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fd4c core_register + 4336
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2df80> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30fc0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f458 core_register + 2044
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2cde0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c306f0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f248 core_register + 1516
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c9c0> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c304e0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067f070 core_register + 1044
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2c780> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c303c0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in xf_val_native_fn>':
+4   dyld                                  0x181c41d54 start + 7184
+3   xf                                    0x1006a0600 main + 164
+2   xf                                    0x10067fc2c core_register + 4048
+1   xf                                    0x1006a9734 xf_val_native_fn + 60
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (144 bytes) ROOT LEAK: <calloc in xf_val_native_fn 0xac0c2dd40> [96]
+       1 (48 bytes) <malloc in xf_val_native_fn 0xac0c30ea0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in ast_ident>':
+31  dyld                                  0x181c41d54 start + 7184
+30  xf                                    0x1006a0928 main + 972
+29  xf                                    0x1006a60d8 parse + 184
+28  xf                                    0x1006a5f70 parse_top + 128
+27  xf                                    0x1006a21c4 parse_block + 264
+26  xf                                    0x1006a3cbc parse_stmt + 1264
+25  xf                                    0x1006a364c parse_assign + 28
+24  xf                                    0x1006a3518 parse_ternary + 28
+23  xf                                    0x1006a348c parse_coalesce + 24
+22  xf                                    0x1006a3264 parse_or + 28
+21  xf                                    0x1006a30c4 parse_match + 28
+20  xf                                    0x1006a2fec parse_equality + 28
+19  xf                                    0x1006a2bf0 parse_compare + 28
+18  xf                                    0x1006a29d8 parse_add + 28
+17  xf                                    0x1006a2850 parse_mul + 28
+16  xf                                    0x1006a27b8 parse_exp + 24
+15  xf                                    0x1006a24e4 parse_postfix + 204
+14  xf                                    0x1006a14e4 parse_arglist + 276
+13  xf                                    0x1006a364c parse_assign + 28
+12  xf                                    0x1006a3518 parse_ternary + 28
+11  xf                                    0x1006a348c parse_coalesce + 24
+10  xf                                    0x1006a3264 parse_or + 28
+9   xf                                    0x1006a30c4 parse_match + 28
+8   xf                                    0x1006a2fec parse_equality + 28
+7   xf                                    0x1006a2bf0 parse_compare + 28
+6   xf                                    0x1006a29d8 parse_add + 28
+5   xf                                    0x1006a2850 parse_mul + 28
+4   xf                                    0x1006a27b8 parse_exp + 24
+3   xf                                    0x1006a2440 parse_postfix + 40
+2   xf                                    0x1006a1840 parse_primary + 644
+1   xf                                    0x10067c914 ast_ident + 36
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (128 bytes) ROOT LEAK: <calloc in ast_ident 0xac1009900> [80]
+       1 (48 bytes) <malloc in xf_str_new 0xac0c26220> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in ast_str>':
+31  dyld                                  0x181c41d54 start + 7184
+30  xf                                    0x1006a0928 main + 972
+29  xf                                    0x1006a60d8 parse + 184
+28  xf                                    0x1006a5f70 parse_top + 128
+27  xf                                    0x1006a21c4 parse_block + 264
+26  xf                                    0x1006a5698 parse_var_decl + 404
+25  xf                                    0x1006a364c parse_assign + 28
+24  xf                                    0x1006a3518 parse_ternary + 28
+23  xf                                    0x1006a348c parse_coalesce + 24
+22  xf                                    0x1006a3264 parse_or + 28
+21  xf                                    0x1006a30c4 parse_match + 28
+20  xf                                    0x1006a2fec parse_equality + 28
+19  xf                                    0x1006a2bf0 parse_compare + 28
+18  xf                                    0x1006a29d8 parse_add + 28
+17  xf                                    0x1006a2850 parse_mul + 28
+16  xf                                    0x1006a27b8 parse_exp + 24
+15  xf                                    0x1006a2440 parse_postfix + 40
+14  xf                                    0x1006a1918 parse_primary + 860
+13  xf                                    0x1006a364c parse_assign + 28
+12  xf                                    0x1006a3518 parse_ternary + 28
+11  xf                                    0x1006a348c parse_coalesce + 24
+10  xf                                    0x1006a3264 parse_or + 28
+9   xf                                    0x1006a30c4 parse_match + 28
+8   xf                                    0x1006a2fec parse_equality + 28
+7   xf                                    0x1006a2bf0 parse_compare + 28
+6   xf                                    0x1006a29d8 parse_add + 28
+5   xf                                    0x1006a2850 parse_mul + 28
+4   xf                                    0x1006a27b8 parse_exp + 24
+3   xf                                    0x1006a2440 parse_postfix + 40
+2   xf                                    0x1006a1870 parse_primary + 692
+1   xf                                    0x10067c850 ast_str + 40
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (128 bytes) ROOT LEAK: <calloc in ast_str 0xac109aad0> [80]
+       1 (48 bytes) <malloc in xf_str_new 0xac0c25fe0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in ast_ident>':
+46  dyld                                  0x181c41d54 start + 7184
+45  xf                                    0x1006a0928 main + 972
+44  xf                                    0x1006a60d8 parse + 184
+43  xf                                    0x1006a5f70 parse_top + 128
+42  xf                                    0x1006a21c4 parse_block + 264
+41  xf                                    0x1006a21c4 parse_block + 264
+40  xf                                    0x1006a4538 parse_while + 400
+39  xf                                    0x1006a21c4 parse_block + 264
+38  xf                                    0x1006a5698 parse_var_decl + 404
+37  xf                                    0x1006a364c parse_assign + 28
+36  xf                                    0x1006a3518 parse_ternary + 28
+35  xf                                    0x1006a348c parse_coalesce + 24
+34  xf                                    0x1006a3264 parse_or + 28
+33  xf                                    0x1006a30c4 parse_match + 28
+32  xf                                    0x1006a2fec parse_equality + 28
+31  xf                                    0x1006a2bf0 parse_compare + 28
+30  xf                                    0x1006a29d8 parse_add + 28
+29  xf                                    0x1006a2850 parse_mul + 28
+28  xf                                    0x1006a27b8 parse_exp + 24
+27  xf                                    0x1006a2440 parse_postfix + 40
+26  xf                                    0x1006a1b50 parse_primary + 1428
+25  xf                                    0x1006a364c parse_assign + 28
+24  xf                                    0x1006a3518 parse_ternary + 28
+23  xf                                    0x1006a348c parse_coalesce + 24
+22  xf                                    0x1006a3264 parse_or + 28
+21  xf                                    0x1006a30c4 parse_match + 28
+20  xf                                    0x1006a2fec parse_equality + 28
+19  xf                                    0x1006a2c34 parse_compare + 96
+18  xf                                    0x1006a29d8 parse_add + 28
+17  xf                                    0x1006a2850 parse_mul + 28
+16  xf                                    0x1006a27b8 parse_exp + 24
+15  xf                                    0x1006a2440 parse_postfix + 40
+14  xf                                    0x1006a1918 parse_primary + 860
+13  xf                                    0x1006a364c parse_assign + 28
+12  xf                                    0x1006a3518 parse_ternary + 28
+11  xf                                    0x1006a348c parse_coalesce + 24
+10  xf                                    0x1006a3264 parse_or + 28
+9   xf                                    0x1006a30c4 parse_match + 28
+8   xf                                    0x1006a2fec parse_equality + 28
+7   xf                                    0x1006a2bf0 parse_compare + 28
+6   xf                                    0x1006a29d8 parse_add + 28
+5   xf                                    0x1006a2850 parse_mul + 28
+4   xf                                    0x1006a27b8 parse_exp + 24
+3   xf                                    0x1006a2440 parse_postfix + 40
+2   xf                                    0x1006a1840 parse_primary + 644
+1   xf                                    0x10067c914 ast_ident + 36
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    2 (128 bytes) ROOT LEAK: <calloc in ast_ident 0xac10d0be0> [80]
+       1 (48 bytes) <malloc in xf_str_new 0xac0ca1a70> [48]
+
+STACK OF 2 INSTANCES OF 'ROOT LEAK: <malloc in xf_str_new>':
+19  dyld                                  0x181c41d54 start + 7184
+18  xf                                    0x1006a0928 main + 972
+17  xf                                    0x1006a60d8 parse + 184
+16  xf                                    0x1006a5f70 parse_top + 128
+15  xf                                    0x1006a21c4 parse_block + 264
+14  xf                                    0x1006a5698 parse_var_decl + 404
+13  xf                                    0x1006a364c parse_assign + 28
+12  xf                                    0x1006a3518 parse_ternary + 28
+11  xf                                    0x1006a348c parse_coalesce + 24
+10  xf                                    0x1006a3264 parse_or + 28
+9   xf                                    0x1006a30c4 parse_match + 28
+8   xf                                    0x1006a2fec parse_equality + 28
+7   xf                                    0x1006a2bf0 parse_compare + 28
+6   xf                                    0x1006a29d8 parse_add + 28
+5   xf                                    0x1006a2850 parse_mul + 28
+4   xf                                    0x1006a27b8 parse_exp + 24
+3   xf                                    0x1006a2440 parse_postfix + 40
+2   xf                                    0x1006a1854 parse_primary + 664
+1   xf                                    0x1006a8df8 xf_str_new + 32
+0   libsystem_malloc.dylib                0x181e37f44 _malloc_zone_malloc_instrumented_or_legacy + 152 
+====
+    2 (96 bytes) << TOTAL >>
+      1 (48 bytes) ROOT LEAK: <malloc in xf_str_new 0xac0c25260> [48]
+      1 (48 bytes) ROOT LEAK: <malloc in xf_str_new 0xac0c252c0> [48]
+
+STACK OF 2 INSTANCES OF 'ROOT LEAK: <malloc in xf_str_new>':
+31  dyld                                  0x181c41d54 start + 7184
+30  xf                                    0x1006a0928 main + 972
+29  xf                                    0x1006a60d8 parse + 184
+28  xf                                    0x1006a5f70 parse_top + 128
+27  xf                                    0x1006a21c4 parse_block + 264
+26  xf                                    0x1006a3cbc parse_stmt + 1264
+25  xf                                    0x1006a364c parse_assign + 28
+24  xf                                    0x1006a3518 parse_ternary + 28
+23  xf                                    0x1006a348c parse_coalesce + 24
+22  xf                                    0x1006a3264 parse_or + 28
+21  xf                                    0x1006a30c4 parse_match + 28
+20  xf                                    0x1006a2fec parse_equality + 28
+19  xf                                    0x1006a2bf0 parse_compare + 28
+18  xf                                    0x1006a29d8 parse_add + 28
+17  xf                                    0x1006a2850 parse_mul + 28
+16  xf                                    0x1006a27b8 parse_exp + 24
+15  xf                                    0x1006a24e4 parse_postfix + 204
+14  xf                                    0x1006a14e4 parse_arglist + 276
+13  xf                                    0x1006a364c parse_assign + 28
+12  xf                                    0x1006a3518 parse_ternary + 28
+11  xf                                    0x1006a348c parse_coalesce + 24
+10  xf                                    0x1006a3264 parse_or + 28
+9   xf                                    0x1006a30c4 parse_match + 28
+8   xf                                    0x1006a3070 parse_equality + 160
+7   xf                                    0x1006a2bf0 parse_compare + 28
+6   xf                                    0x1006a29d8 parse_add + 28
+5   xf                                    0x1006a2850 parse_mul + 28
+4   xf                                    0x1006a27b8 parse_exp + 24
+3   xf                                    0x1006a2440 parse_postfix + 40
+2   xf                                    0x1006a1854 parse_primary + 664
+1   xf                                    0x1006a8df8 xf_str_new + 32
+0   libsystem_malloc.dylib                0x181e37f44 _malloc_zone_malloc_instrumented_or_legacy + 152 
+====
+    2 (96 bytes) << TOTAL >>
+      1 (48 bytes) ROOT LEAK: <malloc in xf_str_new 0xac0c25410> [48]
+      1 (48 bytes) ROOT LEAK: <malloc in xf_str_new 0xac0c25500> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in ast_num>':
+31  dyld                                  0x181c41d54 start + 7184
+30  xf                                    0x1006a0928 main + 972
+29  xf                                    0x1006a60d8 parse + 184
+28  xf                                    0x1006a5f70 parse_top + 128
+27  xf                                    0x1006a21c4 parse_block + 264
+26  xf                                    0x1006a5698 parse_var_decl + 404
+25  xf                                    0x1006a364c parse_assign + 28
+24  xf                                    0x1006a3518 parse_ternary + 28
+23  xf                                    0x1006a348c parse_coalesce + 24
+22  xf                                    0x1006a3264 parse_or + 28
+21  xf                                    0x1006a30c4 parse_match + 28
+20  xf                                    0x1006a2fec parse_equality + 28
+19  xf                                    0x1006a2bf0 parse_compare + 28
+18  xf                                    0x1006a29d8 parse_add + 28
+17  xf                                    0x1006a2850 parse_mul + 28
+16  xf                                    0x1006a27b8 parse_exp + 24
+15  xf                                    0x1006a2440 parse_postfix + 40
+14  xf                                    0x1006a1918 parse_primary + 860
+13  xf                                    0x1006a364c parse_assign + 28
+12  xf                                    0x1006a3518 parse_ternary + 28
+11  xf                                    0x1006a348c parse_coalesce + 24
+10  xf                                    0x1006a3264 parse_or + 28
+9   xf                                    0x1006a30c4 parse_match + 28
+8   xf                                    0x1006a2fec parse_equality + 28
+7   xf                                    0x1006a2bf0 parse_compare + 28
+6   xf                                    0x1006a29d8 parse_add + 28
+5   xf                                    0x1006a2850 parse_mul + 28
+4   xf                                    0x1006a27b8 parse_exp + 24
+3   xf                                    0x1006a2440 parse_postfix + 40
+2   xf                                    0x1006a19bc parse_primary + 1024
+1   xf                                    0x10067c6ac ast_num + 36
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    1 (80 bytes) ROOT LEAK: <calloc in ast_num 0xac0c873e0> [80]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <calloc in ast_field>':
+33  dyld                                  0x181c41d54 start + 7184
+32  xf                                    0x1006a0928 main + 972
+31  xf                                    0x1006a60d8 parse + 184
+30  xf                                    0x1006a5f70 parse_top + 128
+29  xf                                    0x1006a21c4 parse_block + 264
+28  xf                                    0x1006a21c4 parse_block + 264
+27  xf                                    0x1006a3cbc parse_stmt + 1264
+26  xf                                    0x1006a3794 parse_assign + 356
+25  xf                                    0x1006a364c parse_assign + 28
+24  xf                                    0x1006a3518 parse_ternary + 28
+23  xf                                    0x1006a348c parse_coalesce + 24
+22  xf                                    0x1006a3264 parse_or + 28
+21  xf                                    0x1006a30c4 parse_match + 28
+20  xf                                    0x1006a2fec parse_equality + 28
+19  xf                                    0x1006a2bf0 parse_compare + 28
+18  xf                                    0x1006a29d8 parse_add + 28
+17  xf                                    0x1006a2850 parse_mul + 28
+16  xf                                    0x1006a27b8 parse_exp + 24
+15  xf                                    0x1006a2440 parse_postfix + 40
+14  xf                                    0x1006a1918 parse_primary + 860
+13  xf                                    0x1006a364c parse_assign + 28
+12  xf                                    0x1006a3518 parse_ternary + 28
+11  xf                                    0x1006a348c parse_coalesce + 24
+10  xf                                    0x1006a3264 parse_or + 28
+9   xf                                    0x1006a30c4 parse_match + 28
+8   xf                                    0x1006a2fec parse_equality + 28
+7   xf                                    0x1006a2bf0 parse_compare + 28
+6   xf                                    0x1006a29d8 parse_add + 28
+5   xf                                    0x1006a2850 parse_mul + 28
+4   xf                                    0x1006a27b8 parse_exp + 24
+3   xf                                    0x1006a2440 parse_postfix + 40
+2   xf                                    0x1006a18a8 parse_primary + 748
+1   xf                                    0x10067c970 ast_field + 32
+0   libsystem_malloc.dylib                0x181e38134 _malloc_zone_calloc_instrumented_or_legacy + 132 
+====
+    1 (80 bytes) ROOT LEAK: <calloc in ast_field 0xac10c6cb0> [80]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <malloc in xf_str_new>':
+31  dyld                                  0x181c41d54 start + 7184
+30  xf                                    0x1006a0928 main + 972
+29  xf                                    0x1006a60d8 parse + 184
+28  xf                                    0x1006a5f70 parse_top + 128
+27  xf                                    0x1006a21c4 parse_block + 264
+26  xf                                    0x1006a3cbc parse_stmt + 1264
+25  xf                                    0x1006a364c parse_assign + 28
+24  xf                                    0x1006a3518 parse_ternary + 28
+23  xf                                    0x1006a348c parse_coalesce + 24
+22  xf                                    0x1006a3264 parse_or + 28
+21  xf                                    0x1006a30c4 parse_match + 28
+20  xf                                    0x1006a2fec parse_equality + 28
+19  xf                                    0x1006a2bf0 parse_compare + 28
+18  xf                                    0x1006a29d8 parse_add + 28
+17  xf                                    0x1006a2850 parse_mul + 28
+16  xf                                    0x1006a27b8 parse_exp + 24
+15  xf                                    0x1006a24e4 parse_postfix + 204
+14  xf                                    0x1006a14e4 parse_arglist + 276
+13  xf                                    0x1006a364c parse_assign + 28
+12  xf                                    0x1006a3518 parse_ternary + 28
+11  xf                                    0x1006a348c parse_coalesce + 24
+10  xf                                    0x1006a3264 parse_or + 28
+9   xf                                    0x1006a30c4 parse_match + 28
+8   xf                                    0x1006a2fec parse_equality + 28
+7   xf                                    0x1006a2c34 parse_compare + 96
+6   xf                                    0x1006a29d8 parse_add + 28
+5   xf                                    0x1006a2850 parse_mul + 28
+4   xf                                    0x1006a27b8 parse_exp + 24
+3   xf                                    0x1006a2440 parse_postfix + 40
+2   xf                                    0x1006a1854 parse_primary + 664
+1   xf                                    0x1006a8df8 xf_str_new + 32
+0   libsystem_malloc.dylib                0x181e37f44 _malloc_zone_malloc_instrumented_or_legacy + 152 
+====
+    1 (48 bytes) ROOT LEAK: <malloc in xf_str_new 0xac0c254d0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <malloc in xf_str_new>':
+31  dyld                                  0x181c41d54 start + 7184
+30  xf                                    0x1006a0928 main + 972
+29  xf                                    0x1006a60d8 parse + 184
+28  xf                                    0x1006a5f70 parse_top + 128
+27  xf                                    0x1006a21c4 parse_block + 264
+26  xf                                    0x1006a3cbc parse_stmt + 1264
+25  xf                                    0x1006a364c parse_assign + 28
+24  xf                                    0x1006a3518 parse_ternary + 28
+23  xf                                    0x1006a348c parse_coalesce + 24
+22  xf                                    0x1006a3264 parse_or + 28
+21  xf                                    0x1006a30c4 parse_match + 28
+20  xf                                    0x1006a2fec parse_equality + 28
+19  xf                                    0x1006a2bf0 parse_compare + 28
+18  xf                                    0x1006a29d8 parse_add + 28
+17  xf                                    0x1006a2850 parse_mul + 28
+16  xf                                    0x1006a27b8 parse_exp + 24
+15  xf                                    0x1006a24e4 parse_postfix + 204
+14  xf                                    0x1006a14e4 parse_arglist + 276
+13  xf                                    0x1006a364c parse_assign + 28
+12  xf                                    0x1006a3518 parse_ternary + 28
+11  xf                                    0x1006a348c parse_coalesce + 24
+10  xf                                    0x1006a3264 parse_or + 28
+9   xf                                    0x1006a30c4 parse_match + 28
+8   xf                                    0x1006a2fec parse_equality + 28
+7   xf                                    0x1006a2bf0 parse_compare + 28
+6   xf                                    0x1006a29d8 parse_add + 28
+5   xf                                    0x1006a2850 parse_mul + 28
+4   xf                                    0x1006a27b8 parse_exp + 24
+3   xf                                    0x1006a2440 parse_postfix + 40
+2   xf                                    0x1006a1854 parse_primary + 664
+1   xf                                    0x1006a8df8 xf_str_new + 32
+0   libsystem_malloc.dylib                0x181e37f44 _malloc_zone_malloc_instrumented_or_legacy + 152 
+====
+    1 (48 bytes) ROOT LEAK: <malloc in xf_str_new 0xac0c254a0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <malloc in xf_str_new>':
+9   dyld                                  0x181c41d54 start + 7184
+8   xf                                    0x1006a0940 main + 996
+7   xf                                    0x10069d390 interp_run_program + 164
+6   xf                                    0x10069a05c interp_eval_stmt + 288
+5   xf                                    0x100696b80 interp_eval_expr + 2568
+4   xf                                    0x1006971ec interp_eval_expr + 4212
+3   xf                                    0x1006983a0 interp_eval_expr + 8744
+2   xf                                    0x1006999d8 val_concat + 312
+1   xf                                    0x1006a8df8 xf_str_new + 32
+0   libsystem_malloc.dylib                0x181e37f44 _malloc_zone_malloc_instrumented_or_legacy + 152 
+====
+    1 (48 bytes) ROOT LEAK: <malloc in xf_str_new 0xac0ca20a0> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <malloc in xf_str_new>':
+8   dyld                                  0x181c41d54 start + 7184
+7   xf                                    0x1006a0940 main + 996
+6   xf                                    0x10069d390 interp_run_program + 164
+5   xf                                    0x10069a05c interp_eval_stmt + 288
+4   xf                                    0x10069a2d4 interp_eval_stmt + 920
+3   xf                                    0x1006983a0 interp_eval_expr + 8744
+2   xf                                    0x1006999d8 val_concat + 312
+1   xf                                    0x1006a8df8 xf_str_new + 32
+0   libsystem_malloc.dylib                0x181e37f44 _malloc_zone_malloc_instrumented_or_legacy + 152 
+====
+    1 (48 bytes) ROOT LEAK: <malloc in xf_str_new 0xac0ca2070> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <malloc in xf_str_new>':
+19  dyld                                  0x181c41d54 start + 7184
+18  xf                                    0x1006a0928 main + 972
+17  xf                                    0x1006a60d8 parse + 184
+16  xf                                    0x1006a5f70 parse_top + 128
+15  xf                                    0x1006a21c4 parse_block + 264
+14  xf                                    0x1006a5698 parse_var_decl + 404
+13  xf                                    0x1006a364c parse_assign + 28
+12  xf                                    0x1006a3518 parse_ternary + 28
+11  xf                                    0x1006a348c parse_coalesce + 24
+10  xf                                    0x1006a3264 parse_or + 28
+9   xf                                    0x1006a30c4 parse_match + 28
+8   xf                                    0x1006a2fec parse_equality + 28
+7   xf                                    0x1006a2c34 parse_compare + 96
+6   xf                                    0x1006a29d8 parse_add + 28
+5   xf                                    0x1006a2850 parse_mul + 28
+4   xf                                    0x1006a27b8 parse_exp + 24
+3   xf                                    0x1006a2440 parse_postfix + 40
+2   xf                                    0x1006a1854 parse_primary + 664
+1   xf                                    0x1006a8df8 xf_str_new + 32
+0   libsystem_malloc.dylib                0x181e37f44 _malloc_zone_malloc_instrumented_or_legacy + 152 
+====
+    1 (48 bytes) ROOT LEAK: <malloc in xf_str_new 0xac0c25350> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <malloc in xf_str_new>':
+31  dyld                                  0x181c41d54 start + 7184
+30  xf                                    0x1006a0928 main + 972
+29  xf                                    0x1006a60d8 parse + 184
+28  xf                                    0x1006a5f70 parse_top + 128
+27  xf                                    0x1006a21c4 parse_block + 264
+26  xf                                    0x1006a5698 parse_var_decl + 404
+25  xf                                    0x1006a364c parse_assign + 28
+24  xf                                    0x1006a3518 parse_ternary + 28
+23  xf                                    0x1006a348c parse_coalesce + 24
+22  xf                                    0x1006a3264 parse_or + 28
+21  xf                                    0x1006a30c4 parse_match + 28
+20  xf                                    0x1006a2fec parse_equality + 28
+19  xf                                    0x1006a2bf0 parse_compare + 28
+18  xf                                    0x1006a29d8 parse_add + 28
+17  xf                                    0x1006a2850 parse_mul + 28
+16  xf                                    0x1006a27b8 parse_exp + 24
+15  xf                                    0x1006a2440 parse_postfix + 40
+14  xf                                    0x1006a1bc4 parse_primary + 1544
+13  xf                                    0x1006a364c parse_assign + 28
+12  xf                                    0x1006a3518 parse_ternary + 28
+11  xf                                    0x1006a348c parse_coalesce + 24
+10  xf                                    0x1006a3264 parse_or + 28
+9   xf                                    0x1006a30c4 parse_match + 28
+8   xf                                    0x1006a2fec parse_equality + 28
+7   xf                                    0x1006a2bf0 parse_compare + 28
+6   xf                                    0x1006a29d8 parse_add + 28
+5   xf                                    0x1006a2850 parse_mul + 28
+4   xf                                    0x1006a27b8 parse_exp + 24
+3   xf                                    0x1006a2440 parse_postfix + 40
+2   xf                                    0x1006a1854 parse_primary + 664
+1   xf                                    0x1006a8df8 xf_str_new + 32
+0   libsystem_malloc.dylib                0x181e37f44 _malloc_zone_malloc_instrumented_or_legacy + 152 
+====
+    1 (48 bytes) ROOT LEAK: <malloc in xf_str_new 0xac0c25860> [48]
+
+STACK OF 1 INSTANCE OF 'ROOT LEAK: <malloc in xf_str_new>':
+9   dyld                                  0x181c41d54 start + 7184
+8   xf                                    0x1006a0940 main + 996
+7   xf                                    0x10069d390 interp_run_program + 164
+6   xf                                    0x10069a05c interp_eval_stmt + 288
+5   xf                                    0x10069a2d4 interp_eval_stmt + 920
+4   xf                                    0x1006971ec interp_eval_expr + 4212
+3   xf                                    0x1006983a0 interp_eval_expr + 8744
+2   xf                                    0x1006999d8 val_concat + 312
+1   xf                                    0x1006a8df8 xf_str_new + 32
+0   libsystem_malloc.dylib                0x181e37f44 _malloc_zone_malloc_instrumented_or_legacy + 152 
+====
+    1 (48 bytes) ROOT LEAK: <malloc in xf_str_new 0xac0ca2040> [48]
+
+
+
+Binary Images:
+       0x10067c000 -        0x1006b2a97 +xf (0) <77A90A14-403F-3DD6-90B1-9E7B1096C568> /Users/*/Documents/*/xf
+       0x100748000 -        0x1007489db  libLeaksAtExit.dylib (64573.1.1) <39CEAAC5-9650-35EB-8221-C47B08152E5F> /usr/lib/libLeaksAtExit.dylib
+       0x181bb4000 -        0x181c074bb  libobjc.A.dylib (951.1) <9E66CFF2-3EBD-3242-8166-D5D0C204755B> /usr/lib/libobjc.A.dylib
+       0x181c08000 -        0x181c38bcb  libdyld.dylib (1340) <D0CBB392-9301-3174-8904-D869F1D973CF> /usr/lib/system/libdyld.dylib
+       0x181c39000 -        0x181cd8713  dyld (1.0.0 - 1340) <BC4DB5F4-1C64-3706-8006-73B78C3E1F1A> /usr/lib/dyld
+       0x181cd9000 -        0x181cdc1d0  libsystem_blocks.dylib (96) <F1D9FC62-B5CE-3FB6-B264-B1933396C05F> /usr/lib/system/libsystem_blocks.dylib
+       0x181cdd000 -        0x181d3207f  libxpc.dylib (3089.80.10) <3B264F68-2825-3790-8796-4B49581D6425> /usr/lib/system/libxpc.dylib
+       0x181d33000 -        0x181d5395f  libsystem_trace.dylib (1815.80.2) <2CE5667A-97C5-35F3-8124-BB48185D0D3D> /usr/lib/system/libsystem_trace.dylib
+       0x181d54000 -        0x181e00ccf  libcorecrypto.dylib (1922.80.7) <A6FB5220-05F1-36A3-93CA-E45F15C98D3A> /usr/lib/system/libcorecrypto.dylib
+       0x181e01000 -        0x181e4cc67  libsystem_malloc.dylib (792.80.2) <221D1476-49F1-3370-A1DE-82991ACDB932> /usr/lib/system/libsystem_malloc.dylib
+       0x181e4d000 -        0x181e93e5f  libdispatch.dylib (1542.0.4) <4C58AB31-F363-3E75-A8F8-302105812DBF> /usr/lib/system/libdispatch.dylib
+       0x181e94000 -        0x181e96feb  libsystem_featureflags.dylib (101) <36BE75BA-0B53-3ACA-ABAF-C639D711C90B> /usr/lib/system/libsystem_featureflags.dylib
+       0x181e97000 -        0x181f19047  libsystem_c.dylib (1725.40.4) <EB569350-0696-3397-838E-0344948107C0> /usr/lib/system/libsystem_c.dylib
+       0x181f1a000 -        0x181facea3  libc++.1.dylib (2000.67) <2DCB82A8-F83C-3656-B99E-B22415EA2AAA> /usr/lib/libc++.1.dylib
+       0x181fad000 -        0x181fc792f  libc++abi.dylib (2000.67) <581F1CC9-CE04-30EF-AB06-1638E36161A7> /usr/lib/libc++abi.dylib
+       0x181fc8000 -        0x18200449f  libsystem_kernel.dylib (12377.81.4) <B809799C-0EC9-3EE1-B730-342BDBF14E03> /usr/lib/system/libsystem_kernel.dylib
+       0x182005000 -        0x182011acb  libsystem_pthread.dylib (539.80.3) <0596A7B6-BCE2-3F06-A2E8-3EAAB5371ED8> /usr/lib/system/libsystem_pthread.dylib
+       0x182012000 -        0x18201a4af  libsystem_platform.dylib (359.80.2) <62C9CD37-272D-3D2D-9A1C-6F4EF24F7EC7> /usr/lib/system/libsystem_platform.dylib
+       0x18201b000 -        0x18204ae23  libsystem_info.dylib (600) <05CCB208-0B54-38D8-B736-6C7043F446AA> /usr/lib/system/libsystem_info.dylib
+       0x185fc4000 -        0x185fce397  libsystem_darwin.dylib (1725.40.4) <EAC9A3D8-2048-3E6A-BA11-77D1C25C0EF3> /usr/lib/system/libsystem_darwin.dylib
+       0x186435000 -        0x186446ff3  libsystem_notify.dylib (344.0.1) <73D7BFA7-9433-3ECD-929F-06220C37F214> /usr/lib/system/libsystem_notify.dylib
+       0x188710000 -        0x18872afdb  libsystem_networkextension.dylib (2205.81.1) <645A9697-79B5-3E35-A642-5FFDD53CB6A7> /usr/lib/system/libsystem_networkextension.dylib
+       0x1887ae000 -        0x1887c5ff3  libsystem_asl.dylib (406) <2A30FE38-5014-334B-941B-579054EA8C1E> /usr/lib/system/libsystem_asl.dylib
+       0x18a36a000 -        0x18a3723b7  libsystem_symptoms.dylib (2158.80.11) <ED7EEE1F-0CA6-30CF-9A27-7440EE0661BC> /usr/lib/system/libsystem_symptoms.dylib
+       0x18e327000 -        0x18e35f2bb  libsystem_containermanager.dylib (725.80.5) <9FC7766C-6828-3EA2-9C9A-B209892A0186> /usr/lib/system/libsystem_containermanager.dylib
+       0x18f77d000 -        0x18f78166f  libsystem_configuration.dylib (1385.80.4) <E5837A49-4BF9-3D25-8671-A6174223010A> /usr/lib/system/libsystem_configuration.dylib
+       0x18f782000 -        0x18f7886a7  libsystem_sandbox.dylib (2680.80.20) <8875D51A-D22D-3A6B-9A17-8D565C96262C> /usr/lib/system/libsystem_sandbox.dylib
+       0x190d1b000 -        0x190d1e1fb  libquarantine.dylib (196.40.3) <84049E82-ACDC-39F3-A2D7-6ECB912B825A> /usr/lib/system/libquarantine.dylib
+       0x1914ab000 -        0x1914b200b  libsystem_coreservices.dylib (191.3.3) <94151A03-8600-3318-8719-103E2D5E83A5> /usr/lib/system/libsystem_coreservices.dylib
+       0x191a05000 -        0x191a428b7  libsystem_m.dylib (3309) <60DE08CC-AE4B-33E5-85E6-8E96D95ED4D8> /usr/lib/system/libsystem_m.dylib
+       0x191a44000 -        0x191a47537  libmacho.dylib (1030.6.3) <D84C5B4C-6EE5-3B2D-8B96-DCA5B83EC11D> /usr/lib/system/libmacho.dylib
+       0x191a61000 -        0x191a6e61f  libcommonCrypto.dylib (600035) <04C03765-D34A-311F-AE1E-CFBB1E627E54> /usr/lib/system/libcommonCrypto.dylib
+       0x191a6f000 -        0x191a78b0b  libunwind.dylib (1900.125) <8DC5F6C2-CDA9-3B93-AC35-ED584D2C9550> /usr/lib/system/libunwind.dylib
+       0x191a81000 -        0x191a8b6ff  libcopyfile.dylib (230.0.1.0.1) <BCF5BEF5-BC4A-3CCE-9D0D-89C57F45CBFB> /usr/lib/system/libcopyfile.dylib
+       0x191a8c000 -        0x191a8f95f  libcompiler_rt.dylib (103.3) <85CAE852-081B-3124-89C1-4C4A21830160> /usr/lib/system/libcompiler_rt.dylib
+       0x191a90000 -        0x191a94a1b  libsystem_collections.dylib (1725.40.4) <17BD45DA-1D82-3A90-9F18-5D569A5693B5> /usr/lib/system/libsystem_collections.dylib
+       0x191a95000 -        0x191a984bf  libsystem_secinit.dylib (168.40.2) <0928D7E4-5DB0-3B75-9DF5-08EC8E9C033B> /usr/lib/system/libsystem_secinit.dylib
+       0x191a99000 -        0x191a9bb57  libremovefile.dylib (84) <D854E7F8-C351-331B-9A26-BE66F9B8996D> /usr/lib/system/libremovefile.dylib
+       0x191a9c000 -        0x191a9cf27  libkeymgr.dylib (31) <18ED97A3-6DD7-3EC2-AB38-E16A862BE1A7> /usr/lib/system/libkeymgr.dylib
+       0x191a9d000 -        0x191aa5f8f  libsystem_dnssd.dylib (2881.80.4.0.1) <EB84C040-D153-37D3-A933-8AD3CFD893BA> /usr/lib/system/libsystem_dnssd.dylib
+       0x191aa6000 -        0x191aab0b3  libcache.dylib (95) <EA56E91F-7683-3AA5-AF72-185994622502> /usr/lib/system/libcache.dylib
+       0x191aac000 -        0x191aadcf3  libSystem.B.dylib (1356) <6AE3A2BD-839C-3DEA-854C-1C4A10567C26> /usr/lib/libSystem.B.dylib
+       0x1ae929000 -        0x1ae935a4b  com.apple.MallocStackLogging (1.0 - 64573.4.1) <C3EBC9BA-52FB-3624-B38F-595D3806224C> /System/Library/PrivateFrameworks/MallocStackLogging.framework/Versions/A/MallocStackLogging
+       0x27ff35000 -        0x27ff3c319  libRosetta.dylib (367.3) <5315C55D-09E5-394B-A9E5-672B23847BF7> /usr/lib/libRosetta.dylib
+       0x281642000 -        0x281645deb  libsystem_darwindirectory.dylib (122) <9AD833C7-D009-39FF-8D04-D57C937D9EAC> /usr/lib/system/libsystem_darwindirectory.dylib
+       0x281646000 -        0x28164f34b  libsystem_eligibility.dylib (289.80.56) <0E973CB5-A124-3716-9841-1EA67809AF06> /usr/lib/system/libsystem_eligibility.dylib
+       0x281650000 -        0x281657873  libsystem_sanitizers.dylib (25) <90C45178-3954-3108-9F2F-44E528DF5E44> /usr/lib/system/libsystem_sanitizers.dylib
+       0x281658000 -        0x281658bb7  libsystem_trial.dylib (474.2.0.5.2) <E776BAEB-B36B-3EA2-BEFE-3E2F7999E235> /usr/lib/system/libsystem_trial.dylib
